@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+
+.note-editable table.table.table-bordered  tr:first-child td{border-top:1px solid #ddd !important;}
+.note-editable table.table.table-bordered  tr:last-child td{border-bottom:1px solid #ddd !important;}
+.grid-pointer {cursor: pointer;}
+
+
+.ui-jqgrid-btable.ui-common-table .ui-icon-close{text-indent:-9999em;width:10px;height:10px;margin-left:10px;
+
+
+background: url(images/icon_sprite.png) no-repeat  -46px -152px !important;}
+
+.ui-jqgrid-btable.ui-common-table td > ul.file-list {text-align:left !important;}
+.ui-jqgrid-btable.ui-common-table td > form > input.upload-name {font-weight: 400;color: #000;font-size: 14px;}
+
+
+.ui-jqgrid-btable.ui-common-table input[type=text] {height:30px; padding: 10px; width: 100%;}
+.ui-jqgrid-btable.ui-common-table input[type=number] {height:30px; padding: 10px; width: 100%;}
+
+
+.selectric-hide {
+	display: none !important;
+}
+
+.selectric-show {
+	display: inline-block !important;
+}
+/* 셀렉박스 정렬*/
+.tbl-type .selectric .label{text-align:left}
+
+/* type.less에 티폴트로 margin-bottom :10px이 있어서 테이블에 라디오, 체크박스, 인풋등등 떠보이는 현상 해결 */
+td ul, aside ul{margin-bottom:0px;}

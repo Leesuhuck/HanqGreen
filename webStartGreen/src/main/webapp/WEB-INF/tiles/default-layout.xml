@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+<!-- 메인 타일즈 -->
+<definition name="main-tiles"  template="/WEB-INF/jsp/egovframework/example/cmmn/main-layouts.jsp">
+  <put-attribute name="head"      value="/WEB-INF/jsp/egovframework/example/cmmn/default-head.jsp" />
+  <put-attribute name="header"    value="/WEB-INF/jsp/egovframework/example/cmmn/default-header.jsp" />
+  <put-attribute name="content"   value="/WEB-INF/jsp/egovframework/example/main/main.jsp" />
+  <put-attribute name="footer"    value="/WEB-INF/jsp/egovframework/example/cmmn/default-footer.jsp" />
+</definition>
+
+<!-- default 타일즈 -->
+<definition name="default-tiles"  template="/WEB-INF/jsp/egovframework/example/cmmn/default-layouts.jsp">
+  <put-attribute name="head"      value="/WEB-INF/jsp/egovframework/example/cmmn/default-head.jsp" />
+  <put-attribute name="header"    value="/WEB-INF/jsp/egovframework/example/cmmn/default-header.jsp" />
+  <put-attribute name="left"      value="/WEB-INF/jsp/egovframework/example/cmmn/default-left.jsp" />
+  <put-attribute name="content"   value=""/>
+  <put-attribute name="footer"    value="/WEB-INF/jsp/egovframework/example/cmmn/default-footer.jsp" />
+</definition>
+
+<definition name="*/*.tiles" extends="default-tiles">
+  <put-attribute name="content"   value="/WEB-INF/jsp/egovframework/example/{1}/{2}.jsp" />
+</definition>
+</tiles-definitions>

@@ -1,0 +1,77 @@
+Green 1-1
+MVC : 모델, 뷰, 컨트롤러에 약자입니다.
+이런 어떠한 사용자가 요청(주소창에 치는것, href 속성을 이용하는것, location.href(자바스크립트), form)을 하면 된다.
+
+MVC 패턴
+- 클라이언트 -(요청)> 컨트롤러 -> 서비스 -> 서비스임플 -> 맵퍼 -> DB [응답패턴은 반대이다]
+클라이언트 : 사용자가 요청을 하면 컨트롤러(터미널역할) 까지간다.
+그 다음에 서비스라는 곳이있다. 
+서비스 : 트랜잭션을 관리하는곳이다.
+서비스 임플 : 프로젝트 내에서 제일 중요한 로직을 짜는곳이다.
+맵퍼 : SQL을 가리키기만 한다.
+DB : 원하는 데이터를 뒤져서 응답한다.
+
+Green 1-2
+1. 컨트롤러에 메서드를 생성했다.
+2. 위 컨트롤러에 서비스 파일을 생성했다.
+
+throws Exception : 서버가 실행되었을때 예상치 못한 오류가 발생되었을때 이 메서드를 호출한 곳에다가 그 예외처리를 넘기겠다는 뜻입니다.
+서비스 생성법 : 해당 컨트롤러에 보관하고 있는 작업 폴더에 서비스 폴더를 생성합니다.
+서비스는 인터페이스 이므로 서비스 폴더 안에 작업명 + Service 라고 지어줍니다.
+
+@Resource
+리소스는 컨트롤러 클래스 한줄 아래에 첫번째 메서드 한줄 위에 생성합니다.
+위 리소스는 서비스에 멤버를 참조하기 위해 필요하다.
+클래스에서 클래스로 이동할때는 객체를 사용했다.
+그런데 클래스에서 인터페이스로 이동할때는 리소스가 필요하다.
+- 서비스로 이동을 할수 있는 어노테이션이다.
+private HaksaengStatusService haksaengStatusService;
+수식자 타입 변수명
+
+Green 1-3
+List<EgovMap> haksaengList = haksaengStatusService.selectHaksaengStatusServiceList();
+- 서비스를 호출하는것이다. 서비스에 있는 메서드를 호출하는것인데 (컨트롤러 -> 서비스 -> 서비스 인플 -> 맵퍼 -> SQL) 이 용도에서 사용하는것을 서비스 라고 부릅니다.
+- 제네릭 타입에 EgovMap은 지금은 안알려주지만 맵에 일종이다.
+
+위 서비스를 호출한 컨트롤러 메서드에 스로우 입셉션이 붙어있다면 똑같이 추상 메서드에서도 스로우 입셉션을 붙여주어야합니다.
+
+서비스명에 대한 암묵적인 실무에 표준이있습니다.
+먼저 이 select는 보통 조회용 서비스이다.
+insert 저장용 서비스이다.
+update 수정용 서비스이다.
+delete 삭제용 서비스이다.
+
+컨트롤러에 메서드에서는 insert, update, delete는 직접적으로 쓰지않습니다.
+save 라고 씁니다.
+List<EgovMap> haksaengList = haksaengStatusService.saveHaksaengStatusServiceList();
+
+서비스종류 + 업무명 + 서비스 + 리스트(여러줄을 담는곳)
+서비스종류 + 업무명 + 서비스 + Info(한줄만 담는곳)
+
+1-6 :
+에스터 리스트 = **
+어떠한 것이 와도 다 적용해줘
+<property name="basePackage" value="egovframework.example.**.service.impl" />
+해석 : 프로펄티 태그안에 베이스패키지란 이름이 언급되면 반환값으로 이가부프레임워크.이그젬플.이그젬플안에 어떤파일이든.서비스파일안에 임플파일까지 반환해줘
+
+<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
+ 	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
+		<property name="basePackage" value="egovframework.example.**.service.impl" />
+	</bean>
+
+pom.xml에 디펜더시 태그에 마리아 DB 자르 추가하는방법
+
+<dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>2.6.0</version>
+ </dependency>
+
+main.리소스.이가부프레임워크.스프링.context-datasource.xml
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="url" value="jdbc:mariadb://localhost:3306/hanq" />
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.count.service.impl.CountMapper">
+
+	<select id="selectCountServiceList" resultType="egovMap">
+		SELECT (@rownum := @rownum + 1) counts
+		     , us.user_id
+		     , us.user_nm
+		     , us.age
+		     , us.cafe_nick
+		     , us.phone
+		FROM t_user us
+		JOIN (SELECT @rownum := 0) counts
+	</select>
+</mapper>

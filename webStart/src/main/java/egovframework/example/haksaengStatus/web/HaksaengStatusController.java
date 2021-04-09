@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import egovframework.example.haksaengStatus.chart.service.HaksaengStatusChartService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusService;
 import egovframework.example.user.service.UserService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
@@ -19,6 +20,9 @@ public class HaksaengStatusController {
 	HaksaengStatusService haksaengStatusService;
 	
 	@Resource
+	HaksaengStatusChartService haksaengStatusChartService;
+	
+	@Resource
 	UserService userService;
 	
 	
@@ -26,12 +30,13 @@ public class HaksaengStatusController {
 	public String initHaksaengStatus(Model modelHaksaeng) throws Exception {
 		
 		List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
-		
+		List<EgovMap> haksaengStatusChartList = haksaengStatusChartService.selecthaksaengStatusChartServiceList();
 		List<EgovMap> userList = userService.selectUserServiceList();
 		
 		modelHaksaeng.addAttribute("haksaengStatusList", haksaengStatusList);
+		modelHaksaeng.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
 		
-		System.out.println(userList);
+		System.out.println(haksaengStatusChartList);
 		
 		return "haksaengStatus/haksaengStatus.tiles";
 	}

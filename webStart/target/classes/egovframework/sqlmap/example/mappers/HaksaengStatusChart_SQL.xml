@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.haksaengStatus.chart.service.impl.HaksaengStatusChartMapper">
+
+	<select id="selecthaksaengStatusChartServiceList" resultType="egovMap">
+		SELECT A.class_nm
+			  , COUNT(class_nm) AS cont
+		FROM (
+		
+				SELECT gs.class_nm
+				FROM 	 t_user u
+				JOIN   t_gisu gs
+				ON     u.user_id = gs.user_id
+					
+				UNION ALL
+				
+				SELECT '생존전략'class_nm
+				FROM t_user u
+				WHERE NOT EXISTS (SELECT null
+									 FROM t_gisu gs
+									 WHERE u.user_id = gs.user_id)) A
+		GROUP BY A.class_nm
+	</select>
+</mapper>

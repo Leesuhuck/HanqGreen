@@ -5,8 +5,15 @@
 var leftInitC = {
 		
 	leftClkA : function(liStr) {
-		$("#pageName").val(liStr);
-		$("#leftFrm").attr("action", "/" + liStr + ".do")
+		
+		if (liStr === "initHaksaengStatusChart" || liStr === "initHaksaengStatusTable") {
+			$("#pageName").val(liStr);
+			$("#leftFrm").attr("action", "/oneLove.do");
+		}
+		else {
+			$("#pageName").val(liStr);
+			$("#leftFrm").attr("action", "/" + liStr + ".do")	
+		}
 
 		$("#leftFrm").submit();
 	}

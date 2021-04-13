@@ -13,6 +13,7 @@
 		<c:forEach items="${haksaengStatusChartList}" var="haksaengStatusChartInfo" varStatus="status" >
 			labelArr[${status.index}] 	= "${haksaengStatusChartInfo.classNm}";
 			dataArr[${status.index}] 	= "${haksaengStatusChartInfo.cont}";
+			console.log("${haksaengStatusChartInfo}");
 		</c:forEach>
 		
 		console.log(ltt);

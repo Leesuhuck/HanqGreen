@@ -15,7 +15,7 @@ var leftInitC = {
 		}
 		else if (liStr === "initHaksaengStatusTestTable") {
 			
-			$("#leftFrm").attr("action","/testServer.do");
+			$("#leftFrm").attr("action", "/testServerList.do");
 			
 		}
 		else {
@@ -42,6 +42,7 @@ $(function() {
 <form id="leftFrm" method="post">
 	<input type="hidden" id="pageName" name="pageName">
 	<input type = "hidden" id = "tName" name = "tName"/>
+	<input type = "hidden" id = "testNm" name = "testNm"/>
 </form>
 
 <!-- lnb -->

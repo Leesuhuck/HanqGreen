@@ -6,6 +6,6 @@ import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 public interface HaksaengStatusTestTableService {
 
-	List<EgovMap> selectHaksaengStatusTestTableServiceList() throws Exception;
+	List<EgovMap> selectHaksaengStatusTestTableServiceList(EgovMap mapTest) throws Exception;
 
 }

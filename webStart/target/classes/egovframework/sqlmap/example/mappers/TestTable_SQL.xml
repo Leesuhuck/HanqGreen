@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="egovframework.example.user.service.impl.UserMapper">
+<mapper namespace="egovframework.example.haksaengStatus.test.service.impl.HaksaengStatusTestTableMapper">
 
-	<select id="selectUserServiceList" resultType="egovMap">
-		SELECT us.user_no
-			  , us.user_id
-			  , us.user_nm
+	<select id="selectHaksaengStatusTestTableServiceList" resultType="mapTest" parameterType="mapTest">
+	
+		<!-- 
+		SELECT FORMAT((@counts := @counts + 1),0) AS numbers
 			  , us.age
-			  , us.cafe_nick
 			  , us.phone
-		FROM t_user us
+			  , td.pcId
+			  , td.pcNm
+			  , us.cafe_nick
+		FROM test_data AS td
+		JOIN t_user us
+		ON us.user_nm = td.user_nm
+			, (SELECT @counts := 0) AS counts
+		
+		UNION ALL
+		
+		SELECT FORMAT((@counts := @counts + 1),0) AS numbers
+			  , '00'age
+			  , '010-9999-9999'phone
+			  , td.pcId
+			  , td.pcNm
+			  , '무큐'cafe_nick
+		FROM test_data td
+			, (SELECT @counts := 0) AS counts
+		WHERE NOT EXISTS (SELECT NULL
+								FROM t_user us
+								WHERE td.user_nm = us.user_nm) -->
+		
+		
+		 SELECT *
+			FROM (
+				SELECT FORMAT((@counts := @counts + 1),0) AS numbers
+					  , us.age
+					  , us.phone
+					  , td.pcId
+					  , td.pcNm
+					  , us.cafe_nick
+				FROM test_data AS td
+				JOIN t_user us
+				ON us.user_nm = td.user_nm
+					, (SELECT @counts := 0) AS counts
+				
+				UNION ALL
+				
+				SELECT FORMAT((@counts := @counts + 1),0) AS numbers
+					  , '00'age
+					  , '010-9999-9999'phone
+					  , td.pcId
+					  , td.pcNm
+					  , '무큐'cafe_nick
+				FROM test_data td
+					, (SELECT @counts := 0) AS counts
+				WHERE NOT EXISTS (SELECT NULL
+										FROM t_user us
+										WHERE td.user_nm = us.user_nm)) AS ko
+			<where>
+				<if test="mapNm != null and mapNm != ''">
+					ko.pcNm = #{mapNm}
+				</if>
+			</where>
+			
 	</select>
+	
 </mapper>

@@ -32,7 +32,6 @@ public class HaksaengStatusController {
 
 	private String move;
 	
-	
 	@RequestMapping(value = "/initHaksaengStatus.do")
 	public String initHaksaengStatus(Model modelHaksaeng) throws Exception {
 		
@@ -100,19 +99,26 @@ public class HaksaengStatusController {
 		return move;
 	}
 	
-	@RequestMapping(value="/testServer.do")
+	@RequestMapping(value="/testServerList.do")
 	public String initTestview(HttpServletRequest hSP, Model mdTest) throws Exception {
-		
-		//System.out.println(hSP.getParameter("pageName"));
-		
-		List<EgovMap> haksaengStatusTestTableList = haksaengStatusTestTableService.selectHaksaengStatusTestTableServiceList();
+		System.out.println(hSP.getParameter("pageName"));
 		
 		if (hSP.getParameter("pageName").equals("initHaksaengStatusTestTable")) {
+			System.out.println(hSP.getParameter("testNm"));
 			
-			move = "haksaengStatus/haksaengStatusTestTable.tiles";
+			EgovMap mapTest = new EgovMap();
+			
+			mapTest.put("mapNm", hSP.getParameter("testNm"));
+			
+			List<EgovMap> haksaengStatusTestTableList = haksaengStatusTestTableService.selectHaksaengStatusTestTableServiceList(mapTest);
+			
+			mdTest.addAttribute("haksaengStatusTestTableList", haksaengStatusTestTableList);
+			mdTest.addAttribute("mapNm", hSP.getParameter("testNm"));
+			
+			this.move = "haksaengStatus/haksaengStatusSccuessTable.tiles";
 		}
 		else {
-			move = "haksaengStatus/errerCodeHaksaengStatus.tiles";
+			this.move = "haksaengStatus/errerCodeHaksaengStatus.tiles";
 		}
 		
 		return move;

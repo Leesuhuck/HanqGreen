@@ -16,6 +16,7 @@
     <script src="js/plugin/html5shiv.js"></script>
 <![endif]-->
 
+<!-- <link rel="icon" type="image/png" href="http://example.com/myicon.png"> -->
 <link rel="shortcut icon" href="images/common/favicon.ico">
 
 <title>관리자페이지</title>

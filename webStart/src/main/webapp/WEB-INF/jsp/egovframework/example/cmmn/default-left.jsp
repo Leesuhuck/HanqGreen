@@ -6,16 +6,25 @@ var leftInitC = {
 		
 	leftClkA : function(liStr) {
 		
+		$("#pageName").val(liStr);
+		
 		if (liStr === "initHaksaengStatusChart" || liStr === "initHaksaengStatusTable") {
-			$("#pageName").val(liStr);
+			
 			$("#leftFrm").attr("action", "/oneLove.do");
+			
+		}
+		else if (liStr === "initHaksaengStatusTestTable") {
+			
+			$("#leftFrm").attr("action","/testServer.do");
+			
 		}
 		else {
-			$("#pageName").val(liStr);
-			$("#leftFrm").attr("action", "/" + liStr + ".do")	
+			
+			$("#leftFrm").attr("action", "/" + liStr + ".do")
+			
 		}
-
-		$("#leftFrm").submit();
+		
+		$("#leftFrm").submit(); // form의 논리적 주소와 그 안에 있는 input 데이터들을 모두 *전송*
 	}
 }
 
@@ -32,6 +41,7 @@ $(function() {
 
 <form id="leftFrm" method="post">
 	<input type="hidden" id="pageName" name="pageName">
+	<input type = "hidden" id = "tName" name = "tName"/>
 </form>
 
 <!-- lnb -->
@@ -73,6 +83,18 @@ $(function() {
 						<div>
 							<a href="#">
 								테이블
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
+					<li id="initHaksaengStatusTestTable">
+						<div>
+							<a href="#">
+								연습테이블
 							</a>
 							<button type="button" class="btn-bookmark">
 								<span class="hidden">

@@ -14,10 +14,16 @@ public class HaksaengStatusServiceImpl implements HaksaengStatusService {
 
 	@Resource
 	HaksaengStatusMaper haksaengStatusMaper;
-	
+
 	@Override
-	public List<EgovMap> selectHaksaengStatusServiceList() throws Exception{
-		
+	public List<EgovMap> selectHaksaengStatusServiceList(EgovMap egovMap) throws Exception {
+		// TODO Auto-generated method stub
+		return haksaengStatusMaper.selectHaksaengStatusServiceList(egovMap);
+	}
+
+	@Override
+	public List<EgovMap> selectHaksaengStatusServiceList() throws Exception {
+		// TODO Auto-generated method stub
 		return haksaengStatusMaper.selectHaksaengStatusServiceList();
 	}
 

@@ -5,16 +5,50 @@
 
 	$(function() {
 		
-		var cliAr = document.getElementById("alert1");
-		
-		console.log(cliAr);
+		/*
+		* 이벤트 리스너 미적용
+		var cliAr = $("#alert1")[0];
+		//var cliAr = document.getElementById("alert1");
 		
 		cliAr.onclick = function() {
 			window.alert('1');
 		}
+		*/
+		
+		/*
+		// 이벤트 리스너 적용		
+		$("#alert1").click(function(){
+		// $("tbody > tr") 도 가능
+			
+			alert('1');
+			
+		});
+		*/
+		$("#haven").attr("action","/oneLove.do");
+		
+		$("tbody > tr").click(function() {
+		
+			var let = "$(haksaengStatusList)";
+			var lets = "${haksaengStatusList}";
+			console.dir(let);
+			console.dir(lets);
+			console.dir($(this));
+			console.log($(this));
+			// children도 같은 자식요소 선택자이다.
+			/*
+			문자열리터럴 타겟을 잡을시 꺽새를통해 자식요소 선택자를 지정해줄수 있다.
+			this는 문자열 리터럴이 아니다. 이럴때는 문자열리터럴을 못써서 칠드런을 사용한다.
+			*/
+			
+			var $allTd = $(this).children();
+			
+			$("#tName").val(($allTd.eq(1).text().trim()));
+			
+			leftInitC.leftClkA("initHaksaengStatusTable");
+			
+		});
 		
 	});
-	
 
 </script>
 

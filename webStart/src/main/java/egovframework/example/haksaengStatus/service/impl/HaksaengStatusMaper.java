@@ -10,4 +10,6 @@ public interface HaksaengStatusMaper {
 
 	List<EgovMap> selectHaksaengStatusServiceList() throws Exception;
 
+	List<EgovMap> selectHaksaengStatusServiceList(EgovMap egovMap);
+
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.example.haksaengStatus.chart.service.HaksaengStatusChartService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusService;
+import egovframework.example.haksaengStatus.test.service.HaksaengStatusTestTableService;
 import egovframework.example.user.service.UserService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 
@@ -25,6 +26,9 @@ public class HaksaengStatusController {
 	
 	@Resource
 	UserService userService;
+	
+	@Resource
+	HaksaengStatusTestTableService haksaengStatusTestTableService;
 
 	private String move;
 	
@@ -66,10 +70,10 @@ public class HaksaengStatusController {
 	}
 	*/
 	@RequestMapping(value = "/oneLove.do")
-	public String initoneLove(HttpServletRequest req,Model modelChart, Model modelTable) throws Exception {
+	public String initoneLove(HttpServletRequest req, Model modelChart, Model modelTable) throws Exception {
 
 		if (req.getParameter("pageName").equals("initHaksaengStatusChart")) {
-			
+		
 			List<EgovMap> haksaengStatusChartList = haksaengStatusChartService.selecthaksaengStatusChartServiceList();
 			modelChart.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
 			
@@ -80,14 +84,37 @@ public class HaksaengStatusController {
 		
 		else if (req.getParameter("pageName").equals("initHaksaengStatusTable")) {
 			
-			List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
+			EgovMap egovMap = new EgovMap();
+			egovMap.put("userNm", req.getParameter("tName"));
+			List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList(egovMap);
 			modelTable.addAttribute("haksaengStatusList", haksaengStatusList);
+			modelTable.addAttribute("userNm", req.getParameter("tName"));
 			
+
 			this.move = "haksaengStatus/haksaengStatusTable.tiles";
+			System.out.println(req.getParameter("tName"));
 			System.out.println(this.move);
 			
 		}
-
+		
+		return move;
+	}
+	
+	@RequestMapping(value="/testServer.do")
+	public String initTestview(HttpServletRequest hSP, Model mdTest) throws Exception {
+		
+		//System.out.println(hSP.getParameter("pageName"));
+		
+		List<EgovMap> haksaengStatusTestTableList = haksaengStatusTestTableService.selectHaksaengStatusTestTableServiceList();
+		
+		if (hSP.getParameter("pageName").equals("initHaksaengStatusTestTable")) {
+			
+			move = "haksaengStatus/haksaengStatusTestTable.tiles";
+		}
+		else {
+			move = "haksaengStatus/errerCodeHaksaengStatus.tiles";
+		}
+		
 		return move;
 	}
 }

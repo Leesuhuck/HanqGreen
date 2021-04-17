@@ -36,44 +36,26 @@ public class HaksaengStatusController {
 	public String initHaksaengStatus(Model modelHaksaeng) throws Exception {
 		
 		List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
+		
 		List<EgovMap> haksaengStatusChartList = haksaengStatusChartService.selecthaksaengStatusChartServiceList();
+
 		List<EgovMap> userList = userService.selectUserServiceList();
 		
 		modelHaksaeng.addAttribute("haksaengStatusList", haksaengStatusList);
-		modelHaksaeng.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
 		
+		modelHaksaeng.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
 		System.out.println(haksaengStatusChartList);
 		
 		return "haksaengStatus/haksaengStatus.tiles";
 	}
-	/*
-	@RequestMapping(value = "/initHaksaengStatusChart.do")
-	public String initHaksaengStatusChart(HttpServletRequest req,Model modelChart) throws Exception {
-		
-		System.out.println(req.getParameter("pageName"));
-		
-		
-		List<EgovMap> haksaengStatusChartList = haksaengStatusChartService.selecthaksaengStatusChartServiceList();
-		modelChart.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
-		
-		return "haksaengStatus/haksaengStatusChart.tiles";
-	}
-	
-	@RequestMapping(value = "/initHaksaengStatusTable.do")
-	public String initHaksaengStatusTable(Model modelTable) throws Exception {
-		
-		List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
-		modelTable.addAttribute("haksaengStatusList", haksaengStatusList);
-		
-		return "haksaengStatus/haksaengStatusTable.tiles";
-	}
-	*/
+
 	@RequestMapping(value = "/oneLove.do")
 	public String initoneLove(HttpServletRequest req, Model modelChart, Model modelTable) throws Exception {
 
 		if (req.getParameter("pageName").equals("initHaksaengStatusChart")) {
 		
 			List<EgovMap> haksaengStatusChartList = haksaengStatusChartService.selecthaksaengStatusChartServiceList();
+			
 			modelChart.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
 			
 			this.move = "haksaengStatus/haksaengStatusChart.tiles";
@@ -84,11 +66,12 @@ public class HaksaengStatusController {
 		else if (req.getParameter("pageName").equals("initHaksaengStatusTable")) {
 			
 			EgovMap egovMap = new EgovMap();
-			egovMap.put("userNm", req.getParameter("tName"));
-			List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList(egovMap);
-			modelTable.addAttribute("haksaengStatusList", haksaengStatusList);
-			modelTable.addAttribute("userNm", req.getParameter("tName"));
 			
+			egovMap.put("userNm", req.getParameter("tName"));
+			
+			List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList(egovMap);
+			
+			modelTable.addAttribute("haksaengStatusList", haksaengStatusList);
 
 			this.move = "haksaengStatus/haksaengStatusTable.tiles";
 			System.out.println(req.getParameter("tName"));
@@ -113,12 +96,13 @@ public class HaksaengStatusController {
 			List<EgovMap> haksaengStatusTestTableList = haksaengStatusTestTableService.selectHaksaengStatusTestTableServiceList(mapTest);
 			
 			mdTest.addAttribute("haksaengStatusTestTableList", haksaengStatusTestTableList);
-			mdTest.addAttribute("mapNm", hSP.getParameter("testNm"));
 			
 			this.move = "haksaengStatus/haksaengStatusSccuessTable.tiles";
 		}
 		else {
+			
 			this.move = "haksaengStatus/errerCodeHaksaengStatus.tiles";
+			
 		}
 		
 		return move;

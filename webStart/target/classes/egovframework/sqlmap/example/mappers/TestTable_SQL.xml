@@ -4,7 +4,7 @@
 
 	<select id="selectHaksaengStatusTestTableServiceList" resultType="mapTest" parameterType="mapTest">
 	
-		<!-- 
+		<!-- create Table
 		SELECT FORMAT((@counts := @counts + 1),0) AS numbers
 			  , us.age
 			  , us.phone
@@ -30,7 +30,7 @@
 								FROM t_user us
 								WHERE td.user_nm = us.user_nm) -->
 		
-		
+		<!-- Test_data Table mybatis -->
 		 SELECT *
 			FROM (
 				SELECT FORMAT((@counts := @counts + 1),0) AS numbers

@@ -7,5 +7,6 @@
 		<typeAlias alias="mapTest" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
 		<typeAlias alias="searchVO" type="egovframework.example.sample.service.SampleDefaultVO"/>
 		<typeAlias alias="sampleVO" type="egovframework.example.sample.service.SampleVO"/>
+		<typeAlias alias="haksaengStatusVO" type="egovframework.example.haksaengStatus.service.HaksaengStatusVO"/>
     </typeAliases>
 </configuration>

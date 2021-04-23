@@ -10,4 +10,8 @@ public interface HaksaengStatusService {
 	
 	List<EgovMap> selectHaksaengStatusServiceList(EgovMap egovMap) throws Exception;
 
+	List<EgovMap> stringParam(String paramStr) throws Exception;
+
+	List<EgovMap> selectParamVO(HaksaengStatusVO haksaengStatusVO) throws Exception;
+
 }

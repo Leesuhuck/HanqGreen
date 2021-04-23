@@ -104,6 +104,30 @@ $(function() {
 							</button>
 						</div>
 					</li>
+					<li id="stringParam">
+						<div>
+							<a href="#">
+								문자열보내기
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
+					<li id="paramVO">
+						<div>
+							<a href="#">
+								VO보내기
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
 				</ul>
 			</li>
 		</ul>

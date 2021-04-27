@@ -15,25 +15,27 @@
 		}
 		*/
 		
-		/*
-		// 이벤트 리스너 적용		
-		$("#alert1").click(function(){
-		// $("tbody > tr") 도 가능
+		
+		$("#introductionTable > tr").click(function(){
 			
-			alert('1');
+			$("#haven").attr("action","/initIntroductionTable.do");
+			
+			console.log($("#introductionTable > tr"));
+			console.log($(this));
+						
+			window.alert("저의닉네임은 " + $(this).children().eq(3).text().trim() + "입니다.");
+			$("#paramListFirst").val($(this).children().eq(1).text().trim());
+			$("#paramListSecond").val($(this).children().eq(3).text().trim());
+			$("#paramListThird").val($(this).children().eq(2).text().trim());
+			
+			leftInitC.leftClkA("initIntroductionTable");
 			
 		});
-		*/
-		$("#haven").attr("action","/oneLove.do");
 		
-		$("tbody > tr").click(function() {
+		$("#alert1 > tr").click(function() {
+			
+			$("#haven").attr("action","/oneLove.do");
 		
-			var let = "$(haksaengStatusList)";
-			var lets = "${haksaengStatusList}";
-			console.dir(let);
-			console.dir(lets);
-			console.dir($(this));
-			console.log($(this));
 			// children도 같은 자식요소 선택자이다.
 			/*
 			문자열리터럴 타겟을 잡을시 꺽새를통해 자식요소 선택자를 지정해줄수 있다.
@@ -73,6 +75,100 @@
 			</thead>
 			<tbody id = "alert1" >
 				<c:forEach items="${haksaengStatusList}" var="haksaengStatusInfo" >
+					<tr>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.rowCount}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.userNm}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.age}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.cafeNick}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.phone}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.classNm}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.gisuNm}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.juchaNm}"></c:out>
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			
+			<tbody id = "alert2" >
+				<c:forEach items="${paramVO}" var="haksaengStatusInfo" >
+					<tr>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.rowCount}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.userNm}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.age}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.cafeNick}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.phone}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.classNm}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.gisuNm}"></c:out>
+							</a>
+						</td>
+						<td>
+							<a href = "#">
+								<c:out value="${haksaengStatusInfo.juchaNm}"></c:out>
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			
+			<tbody id = "introductionTable" >
+				<c:forEach items="${introduction}" var="haksaengStatusInfo" >
 					<tr>
 						<td>
 							<a href = "#">

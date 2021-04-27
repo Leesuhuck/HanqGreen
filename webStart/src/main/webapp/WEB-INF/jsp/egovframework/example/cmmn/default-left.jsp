@@ -18,6 +18,11 @@ var leftInitC = {
 			$("#leftFrm").attr("action", "/testServerList.do");
 			
 		}
+		else if (liStr === "initIntroductionTable") {
+			
+			$("#leftFrm").attr("action", "/initIntroductionTable.do");
+			
+		}
 		else {
 			
 			$("#leftFrm").attr("action", "/" + liStr + ".do")
@@ -40,9 +45,12 @@ $(function() {
 </script>
 
 <form id="leftFrm" method="post">
-	<input type="hidden" id="pageName" name="pageName">
-	<input type = "hidden" id = "tName" name = "tName"/>
-	<input type = "hidden" id = "testNm" name = "testNm"/>
+	<input type ="hidden"  id = "pageName" 			name="pageName">
+	<input type = "hidden" id = "tName" 			name = "tName"/>
+	<input type = "hidden" id = "testNm" 			name = "testNm"/>
+	<input type = "hidden" id = "paramListFirst" 	name = "paramListFirst"/>
+	<input type = "hidden" id = "paramListSecond" 	name = "paramListSecond"/>
+	<input type = "hidden" id = "paramListThird" 	name = "paramListThird"/>
 </form>
 
 <!-- lnb -->
@@ -120,6 +128,30 @@ $(function() {
 						<div>
 							<a href="#">
 								VO보내기
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
+					<li id="reqParam">
+						<div>
+							<a href="#">
+								@RequestParam
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
+					<li id="initIntroductionTable">
+						<div>
+							<a href="#">
+								자기소개
 							</a>
 							<button type="button" class="btn-bookmark">
 								<span class="hidden">

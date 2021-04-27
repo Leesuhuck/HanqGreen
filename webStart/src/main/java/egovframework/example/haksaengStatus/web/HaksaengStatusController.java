@@ -1,6 +1,7 @@
 package egovframework.example.haksaengStatus.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import egovframework.example.haksaengStatus.chart.service.HaksaengStatusChartService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusService;
@@ -139,6 +141,68 @@ public class HaksaengStatusController {
 		model.addAttribute("paramVO", paramVO);
 		System.out.println(paramVO);
 		
-		return "haksaengStatus/haksaengStatus.tiles";
+		return "haksaengStatus/haksaengStatusTable.tiles";
+	}
+	
+	@RequestMapping(value = "/reqParam.do")
+	public String initReqParam(@RequestParam String pageName,
+							   @RequestParam Map<String, String> paramMap,
+							   Model modelChart, 
+							   Model modelTable) throws Exception {
+
+		List<EgovMap> haksaengList = haksaengStatusService.selectHaksaengStatusServiceList();
+		System.out.println(pageName);
+		System.out.println(paramMap);
+		
+		modelTable.addAttribute("haksaengStatusList", haksaengList);
+		
+		return "haksaengStatus/haksaengStatusTable.tiles";
+	}
+	
+	@RequestMapping(value = "/initIntroductionTable.do")
+	public String initIntroduction(@RequestParam String pageName,
+								   @RequestParam Map<String, String> paramMap,
+								   @RequestParam String paramListFirst,
+								   @RequestParam String paramListSecond,
+								   @RequestParam String paramListThird,
+								   Model modelTable) throws Exception {
+		
+		EgovMap egovMap 					= new EgovMap();
+		HaksaengStatusVO haksaengStatusVO 	= new HaksaengStatusVO();
+		
+		try {
+			haksaengStatusVO.setUserNm(paramListFirst);
+			haksaengStatusVO.setUserId(paramListSecond);
+			haksaengStatusVO.setAge(Integer.parseInt(paramListThird));
+		}catch (Exception e) {
+			System.out.println("예외버그");
+		}
+		
+		try {
+			System.out.println(paramListFirst);
+			System.out.println(paramListSecond);
+			System.out.println(Integer.parseInt(paramListThird));
+		}catch (Exception e) {
+			System.out.println("콘솔버그");
+		}
+		
+		System.out.println("Test : " + haksaengStatusVO.getUserNm());
+		System.out.println("Test : " + haksaengStatusVO.getUserId());
+		System.out.println("Test : " + haksaengStatusVO.getAge());
+		try {
+			egovMap.put("userNm", haksaengStatusVO.getUserNm());
+			egovMap.put("cafe_nick", haksaengStatusVO.getUserId());
+			egovMap.put("age", haksaengStatusVO.getAge());
+		}catch (Exception e) {
+			System.out.println("egovMapError");
+		}
+		
+		List<EgovMap> haksaengList = haksaengStatusService.selectHaksaengStatusServiceList(egovMap);
+		System.out.println(pageName);
+		System.out.println(paramMap);
+		
+		modelTable.addAttribute("introduction", haksaengList);
+		
+		return "haksaengStatus/haksaengStatusTable.tiles";
 	}
 }

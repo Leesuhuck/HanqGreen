@@ -51,6 +51,8 @@ $(function() {
 	<input type = "hidden" id = "userId" 			name = "userId"/>
 	<input type = "hidden" id = "userNm" 			name = "userNm"/>
 	<input type = "hidden" id = "cafeNick" 			name = "cafeNick"/>
+	<input type = "hidden" id = "pcId" 				name = "pcId"/>
+	<input type = "hidden" id = "pcNm" 				name = "pcNm"/>
 	<input type = "hidden" id = "paramListFirst" 	name = "paramListFirst"/>
 	<input type = "hidden" id = "paramListSecond" 	name = "paramListSecond"/>
 	<input type = "hidden" id = "paramListThird" 	name = "paramListThird"/>
@@ -154,7 +156,7 @@ $(function() {
 					<li id="initIntroductionTable">
 						<div>
 							<a href="#">
-								자기소개
+								연습하기
 							</a>
 							<button type="button" class="btn-bookmark">
 								<span class="hidden">

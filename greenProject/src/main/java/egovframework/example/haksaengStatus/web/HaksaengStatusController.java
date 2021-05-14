@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import egovframework.example.haksaengStatus.chart.service.HaksaengStatusChartService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusVO;
+import egovframework.example.haksaengStatus.service.HaksaengStudyVO;
 import egovframework.example.haksaengStatus.test.service.HaksaengStatusTestTableService;
 import egovframework.example.user.service.UserService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
@@ -166,6 +167,7 @@ public class HaksaengStatusController {
 								   @RequestParam String paramListFirst,
 								   @RequestParam String paramListSecond,
 								   @RequestParam String paramListThird,
+								   @ModelAttribute("studyVO") HaksaengStudyVO studyVO,
 								   Model modelTable) throws Exception {
 		
 		EgovMap egovMap 					= new EgovMap();
@@ -204,7 +206,7 @@ public class HaksaengStatusController {
 		
 		modelTable.addAttribute("introduction", haksaengList);
 		
-		return "haksaengStatus/haksaengStatusTable.tiles";
+		return "haksaengStatus/haksaengStudyTable.tiles";
 	}
 	
 	@RequestMapping(value = "/modelAttr.do")

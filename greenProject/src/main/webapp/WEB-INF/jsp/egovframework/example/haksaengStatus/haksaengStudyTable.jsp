@@ -15,21 +15,23 @@
 		}
 		*/
 		
-		$("#alert1 > tr").click(function() {
-			
-			$("#haven").attr("action","/oneLove.do");
 		
-			// children도 같은 자식요소 선택자이다.
-			/*
-			문자열리터럴 타겟을 잡을시 꺽새를통해 자식요소 선택자를 지정해줄수 있다.
-			this는 문자열 리터럴이 아니다. 이럴때는 문자열리터럴을 못써서 칠드런을 사용한다.
-			*/
+		$("#introductionTable > tr").click(function(){
 			
-			var $allTd = $(this).children();
+			$("#haven").attr("action","/initIntroductionTable.do");
 			
-			$("#tName").val(($allTd.eq(1).text().trim()));
+			console.log($("#introductionTable > tr"));
+			console.log($(this));
+						
+			window.alert("저의닉네임은 " + $(this).children().eq(3).text().trim() + "입니다.");
+			$("#paramListFirst").val($(this).children().eq(1).text().trim());
+			$("#paramListSecond").val($(this).children().eq(3).text().trim());
+			$("#paramListThird").val($(this).children().eq(2).text().trim());
+			$("#pcId").val($(this).children().eq(8).text().trim());
+			$("#pcNm").val($(this).children().eq(9).text().trim());
+			$("#userNm").val($(this).children().eq(1).text().trim());
 			
-			leftInitC.leftClkA("initHaksaengStatusTable");
+			leftInitC.leftClkA("initIntroductionTable");
 			
 		});
 		
@@ -56,8 +58,8 @@
 					<td>주차</td>
 				</tr>
 			</thead>
-			<tbody id = "alert1" >
-				<c:forEach items="${haksaengStatusList}" var="haksaengStatusInfo" >
+			<tbody id = "introductionTable" >
+				<c:forEach items="${introduction}" var="haksaengStatusInfo" >
 					<tr>
 						<td>
 							<a href = "#">
@@ -99,56 +101,23 @@
 								<c:out value="${haksaengStatusInfo.juchaNm}"></c:out>
 							</a>
 						</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			
-			<tbody id = "alert2" >
-				<c:forEach items="${paramVO}" var="haksaengStatusInfo" >
-					<tr>
 						<td>
 							<a href = "#">
-								<c:out value="${haksaengStatusInfo.rowCount}"></c:out>
+								<c:out value="${haksaengStatusInfo.pcId}"></c:out>
 							</a>
 						</td>
 						<td>
 							<a href = "#">
-								<c:out value="${haksaengStatusInfo.userNm}"></c:out>
-							</a>
-						</td>
-						<td>
-							<a href = "#">
-								<c:out value="${haksaengStatusInfo.age}"></c:out>
-							</a>
-						</td>
-						<td>
-							<a href = "#">
-								<c:out value="${haksaengStatusInfo.cafeNick}"></c:out>
-							</a>
-						</td>
-						<td>
-							<a href = "#">
-								<c:out value="${haksaengStatusInfo.phone}"></c:out>
-							</a>
-						</td>
-						<td>
-							<a href = "#">
-								<c:out value="${haksaengStatusInfo.classNm}"></c:out>
-							</a>
-						</td>
-						<td>
-							<a href = "#">
-								<c:out value="${haksaengStatusInfo.gisuNm}"></c:out>
-							</a>
-						</td>
-						<td>
-							<a href = "#">
-								<c:out value="${haksaengStatusInfo.juchaNm}"></c:out>
+								<c:out value="${haksaengStatusInfo.pcNm}"></c:out>
 							</a>
 						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		<p>PC정보</p>
+		<p>사용자 : <c:out value="${studyVO.userNm}"></c:out></p>
+		<p>OS : <c:out value="${studyVO.pcId}"></c:out></p>
+		<p>주 언어 : <c:out value="${studyVO.pcNm}"></c:out></p>
 	</div>
 </div>

@@ -41,7 +41,7 @@
 					  , us.cafe_nick
 				FROM test_data AS td
 				JOIN t_user us
-				ON us.user_nm = td.user_nm
+				ON us.user_id = td.user_id
 					, (SELECT @counts := 0) AS counts
 				
 				UNION ALL
@@ -56,7 +56,7 @@
 					, (SELECT @counts := 0) AS counts
 				WHERE NOT EXISTS (SELECT NULL
 										FROM t_user us
-										WHERE td.user_nm = us.user_nm)) AS ko
+										WHERE us.user_id = td.user_id)) AS ko
 			<where>
 				<if test="mapNm != null and mapNm != ''">
 					ko.pcNm = #{mapNm}

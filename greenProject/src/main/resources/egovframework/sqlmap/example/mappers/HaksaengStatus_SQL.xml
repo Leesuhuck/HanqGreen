@@ -6,7 +6,6 @@
 		SELECT *
 		FROM 
 			(SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
-			  , u.user_id
 			  , u.user_nm
 			  , u.age
 			  , u.cafe_nick
@@ -14,15 +13,18 @@
 			  , gs.class_nm
 			  , gs.gisu_nm
 			  , gs.jucha_nm
+			  , td.pcId
+			  , td.pcNm
 			FROM t_user u
 			JOIN t_gisu gs
 			ON u.user_id = gs.user_id
+			JOIN test_data td
+			ON u.user_id = td.user_id
 			, (SELECT @rowCount := 0) rowCount
 			
 			UNION ALL
 			
 			SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
-				, u.user_id
 				, u.user_nm
 				, u.age
 				, u.cafe_nick
@@ -30,10 +32,13 @@
 				, '생존전략'class_nm
 				, '없음'gisu_nm
 				, '없어요'jucha_nm
+				, '미정'pcId
+			   , '미정'pcNm
 			FROM t_user u
 			WHERE NOT EXISTS (SELECT null
-								FROM t_gisu gs
-								WHERE u.user_id = gs.user_id)) AS ATable
+								FROM t_gisu gs,
+									  test_data td		  
+								WHERE u.user_id = gs.user_id = td.user_id)) AS ATable
 		<where>
 			<if test="userNm != null and userNm != '' ">
 				ATable.user_nm = #{userNm}

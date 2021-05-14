@@ -26,9 +26,9 @@
 	<!-- 컨텐츠 -->
 	<div class="content_wrap">
 	<h2 class="fs-18 fw-b">수강생 테이블</h2><br>
-	<p><c:out value="${haksaengStatusVO.userId}"></c:out></p>
-	<p><c:out value="${haksaengStatusVO.userNm}"></c:out></p>
-	<p><c:out value="${haksaengStatusVO.cafeNick}"></c:out></p>
+	<p><c:out value="${vo.userId}"></c:out></p>
+	<p><c:out value="${vo.userNm}"></c:out></p>
+	<p><c:out value="${vo.cafeNick}"></c:out></p>
 		<table class="tbl type02">
 			<thead>
 				<tr>

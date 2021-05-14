@@ -175,6 +175,18 @@ $(function() {
 							</button>
 						</div>
 					</li>
+					<li id="chkBox">
+						<div>
+							<a href="#">
+								checkBox
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
 				</ul>
 			</li>
 		</ul>

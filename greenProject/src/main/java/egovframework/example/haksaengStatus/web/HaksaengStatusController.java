@@ -208,26 +208,32 @@ public class HaksaengStatusController {
 	}
 	
 	@RequestMapping(value = "/modelAttr.do")
-	public String initModelAttr(@ModelAttribute HaksaengStatusVO haksaengStatusVO,
+	public String initModelAttr(@ModelAttribute("vo") HaksaengStatusVO vo,
 							   Model modelTable) throws Exception {
 		
 		EgovMap egovMap = new EgovMap();
 		
-		System.out.println(haksaengStatusVO.getUserId());
-		System.out.println(haksaengStatusVO.getUserNm());
-		System.out.println(haksaengStatusVO.getCafeNick());
+		System.out.println(vo.getUserId());
+		System.out.println(vo.getUserNm());
+		System.out.println(vo.getCafeNick());
 		
 		
-		egovMap.put("userId", haksaengStatusVO.getUserId());
-		egovMap.put("userNm", haksaengStatusVO.getUserNm());
+		egovMap.put("userId", vo.getUserId());
+		egovMap.put("userNm", vo.getUserNm());
 		
 
 		List<EgovMap> haksaengList = haksaengStatusService.selectHaksaengStatusServiceList();
 				
 		modelTable.addAttribute("haksaengStatusList", haksaengList);
-		modelTable.addAttribute("haksaengStatusVO", haksaengStatusVO);
 		
 		return "haksaengStatus/modelAttriTable.tiles";
+	}
+	
+	@RequestMapping(value = "/chkBox.do")
+	public String initchkBox(@RequestParam Map<String, String> paramBoxMap,
+							   Model modelTable) throws Exception {
+					
+		return "haksaengStatus/array.tiles";
 	}
 	
 }

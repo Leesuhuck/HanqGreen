@@ -1,5 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
+
+	$(function() {
+		
+		$("#srchbtn").click(function() {
+			
+			alert("1");
+			
+			var tr 			= $("[name=chkNum]:checked");
+			var checkArr	= [];
+			
+			for (var i = 0; i < tr.length; i++) {
+				checkArr.push(tr.eq(i).val());
+				console.log(checkArr);
+				
+			}
+			
+		});
+		
+	});
+
+</script>
 <div id="contents">
 	<div class="content_wrap">
 		<h2 class="fs-18 fw-b">수강생 필터</h2>
@@ -11,12 +33,12 @@
 			            <th scope="row">수강생 번호</th>
 			            <td>
 			                <ul class="ui-chk">
-			                	<c:forEach items="${haksaengStatusList}" var="haksaengInfo" varStatus="status">
+			                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
 				                    <li>
-				                        <input type="checkbox" id="chkNum${haksaengInfo.num}" name="chkNum"
-				                        	   value="${haksaengInfo.num}" class="type01">
-				                        <label for="chkNum${haksaengInfo.num}">
-				                        	<span><c:out value='${haksaengInfo.num}'/></span>
+				                        <input type="checkbox" id="chkNum${haksaengInfo.rowCount}" name="chkNum"
+				                        	   value="${haksaengInfo.rowCount}" class="type01">
+				                        <label for="chkNum${haksaengInfo.rowCount}">
+				                        	<span><c:out value='${haksaengInfo.rowCount}'/></span>
 				                        </label>
 				                    </li>
 			                    </c:forEach>
@@ -31,7 +53,7 @@
 		  <div class="f-r">
 		    <ul>
 		      <li>
-		      	<button type="button" class="btn type03 f-r">검색</button>
+		      	<button type="button" id="srchbtn" class="btn type03 f-r">검색</button>
 		      </li>
 		    </ul>
 		  </div>
@@ -55,7 +77,7 @@
 			<tbody>
 				<c:forEach items="${haksaengList}" var="haksaengInfo">
 					<tr>
-						<td><c:out value="${haksaengInfo.num}"/></td>
+						<td><c:out value="${haksaengInfo.rowCount}"/></td>
 		                <td><c:out value="${haksaengInfo.userId}"/></td>
 		                <td><c:out value="${haksaengInfo.userNm}"/></td>
 		                <td><c:out value="${haksaengInfo.age}"/></td>

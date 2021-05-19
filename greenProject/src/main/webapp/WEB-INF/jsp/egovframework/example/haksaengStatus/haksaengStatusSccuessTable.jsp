@@ -8,7 +8,6 @@
 		$("#testData > tr").click(function() {
 			
 			var $trNm =  $(this).children();
-			
 			console.log(this.innerText);
 			alert($trNm.eq(4).text().trim());
 			
@@ -18,9 +17,11 @@
 			
 		});
 		
+		
 		<c:forEach items="${haksaengStatusTestTableList}" var="$initHaksaengStatusTestData">
-			console.log("${haksaengStatusTestTableList}");             
+			console.log("${$initHaksaengStatusTestData}");             
 		</c:forEach>
+		
 	
 	});
 

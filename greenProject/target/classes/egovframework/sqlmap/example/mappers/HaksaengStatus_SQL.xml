@@ -6,6 +6,7 @@
 		SELECT *
 		FROM 
 			(SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
+			  , u.user_id
 			  , u.user_nm
 			  , u.age
 			  , u.cafe_nick
@@ -25,6 +26,7 @@
 			UNION ALL
 			
 			SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
+    			, u.user_id
 				, u.user_nm
 				, u.age
 				, u.cafe_nick

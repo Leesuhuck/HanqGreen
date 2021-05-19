@@ -35,8 +35,6 @@ public class HaksaengStatusController {
 	
 	@Resource
 	HaksaengStatusTestTableService haksaengStatusTestTableService;
-
-	private String move;
 	
 	@RequestMapping(value = "/initHaksaengStatus.do")
 	public String initHaksaengStatus(Model modelHaksaeng) throws Exception {
@@ -44,12 +42,11 @@ public class HaksaengStatusController {
 		List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
 		
 		List<EgovMap> haksaengStatusChartList = haksaengStatusChartService.selecthaksaengStatusChartServiceList();
-
-		List<EgovMap> userList = userService.selectUserServiceList();
 		
 		modelHaksaeng.addAttribute("haksaengStatusList", haksaengStatusList);
 		
 		modelHaksaeng.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
+		
 		System.out.println(haksaengStatusChartList);
 		
 		return "haksaengStatus/haksaengStatus.tiles";
@@ -57,6 +54,8 @@ public class HaksaengStatusController {
 
 	@RequestMapping(value = "/oneLove.do")
 	public String initoneLove(HttpServletRequest req, Model modelChart, Model modelTable) throws Exception {
+		
+		String move = "";
 
 		if (req.getParameter("pageName").equals("initHaksaengStatusChart")) {
 		
@@ -64,8 +63,7 @@ public class HaksaengStatusController {
 			
 			modelChart.addAttribute("haksaengStatusChartList", haksaengStatusChartList);
 			
-			this.move = "haksaengStatus/haksaengStatusChart.tiles";
-			System.out.println(this.move);
+			move = "haksaengStatus/haksaengStatusChart.tiles";
 			
 		}
 		
@@ -80,35 +78,36 @@ public class HaksaengStatusController {
 			
 			modelTable.addAttribute("haksaengStatusList", haksaengStatusList);
 
-			this.move = "haksaengStatus/haksaengStatusTable.tiles";
-			System.out.println(req.getParameter("tName"));
-			System.out.println(this.move);
+			move = "haksaengStatus/haksaengStatusTable.tiles";
 			
 		}
 		
 		return move;
+		
 	}
 	
 	@RequestMapping(value="/testServerList.do")
-	public String initTestview(HttpServletRequest hSP, Model mdTest) throws Exception {
-		System.out.println(hSP.getParameter("pageName"));
+	public String initTestview(@RequestParam String pageName,
+							   @RequestParam String testNm,
+							   Model mdTest) throws Exception {
 		
-		if (hSP.getParameter("pageName").equals("initHaksaengStatusTestTable")) {
-			System.out.println(hSP.getParameter("testNm"));
+		String move = "";
+		
+		if (pageName.equals("initHaksaengStatusTestTable")) {
 			
 			EgovMap mapTest = new EgovMap();
 			
-			mapTest.put("mapNm", hSP.getParameter("testNm"));
+			mapTest.put("mapNm", testNm);
 			
 			List<EgovMap> haksaengStatusTestTableList = haksaengStatusTestTableService.selectHaksaengStatusTestTableServiceList(mapTest);
 			
 			mdTest.addAttribute("haksaengStatusTestTableList", haksaengStatusTestTableList);
 			
-			this.move = "haksaengStatus/haksaengStatusSccuessTable.tiles";
+			move = "haksaengStatus/haksaengStatusSccuessTable.tiles";
 		}
 		else {
 			
-			this.move = "haksaengStatus/errerCodeHaksaengStatus.tiles";
+			move = "haksaengStatus/errerCodeHaksaengStatus.tiles";
 			
 		}
 		
@@ -173,38 +172,31 @@ public class HaksaengStatusController {
 		EgovMap egovMap 					= new EgovMap();
 		HaksaengStatusVO haksaengStatusVO 	= new HaksaengStatusVO();
 		
-		try {
-			haksaengStatusVO.setUserNm(paramListFirst);
-			haksaengStatusVO.setUserId(paramListSecond);
-			haksaengStatusVO.setAge(Integer.parseInt(paramListThird));
-		}catch (Exception e) {
-			System.out.println("예외버그");
-		}
-		
-		try {
-			System.out.println(paramListFirst);
-			System.out.println(paramListSecond);
-			System.out.println(Integer.parseInt(paramListThird));
-		}catch (Exception e) {
-			System.out.println("콘솔버그");
-		}
-		
-		System.out.println("Test : " + haksaengStatusVO.getUserNm());
-		System.out.println("Test : " + haksaengStatusVO.getUserId());
-		System.out.println("Test : " + haksaengStatusVO.getAge());
-		try {
-			egovMap.put("userNm", haksaengStatusVO.getUserNm());
-			egovMap.put("cafe_nick", haksaengStatusVO.getUserId());
-			egovMap.put("age", haksaengStatusVO.getAge());
-		}catch (Exception e) {
-			System.out.println("egovMapError");
-		}
-		
 		List<EgovMap> haksaengList = haksaengStatusService.selectHaksaengStatusServiceList(egovMap);
 		System.out.println(pageName);
 		System.out.println(paramMap);
 		
 		modelTable.addAttribute("introduction", haksaengList);
+		
+		haksaengStatusVO.setUserNm(paramListFirst);
+		haksaengStatusVO.setUserId(paramListSecond);
+		haksaengStatusVO.setAge(Integer.parseInt(paramListThird.equals("") ? "0" : paramListThird));
+		
+		// VO 데이터 Set 확인
+		System.out.println("voSetUserNm : " + paramListFirst);
+		System.out.println("voSetUserId : " + paramListSecond);
+		System.out.println("voSetAge : " + paramListThird);
+
+		// VO 데이터 Get 확인
+		System.out.println("voGetUserNm : " + haksaengStatusVO.getUserNm());
+		System.out.println("voGetUserId : " + haksaengStatusVO.getUserId());
+		System.out.println("voGetAge : " + haksaengStatusVO.getAge());
+		
+		// VO 데이터 적용
+		egovMap.put("userNm", haksaengStatusVO.getUserNm());
+		egovMap.put("cafe_nick", haksaengStatusVO.getUserId());
+		egovMap.put("age", haksaengStatusVO.getAge());
+		
 		
 		return "haksaengStatus/haksaengStudyTable.tiles";
 	}
@@ -234,6 +226,10 @@ public class HaksaengStatusController {
 	@RequestMapping(value = "/chkBox.do")
 	public String initchkBox(@RequestParam Map<String, String> paramBoxMap,
 							   Model modelTable) throws Exception {
+		
+		List<EgovMap> hacksengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
+		
+		modelTable.addAttribute("haksaengList", hacksengStatusList);
 					
 		return "haksaengStatus/array.tiles";
 	}

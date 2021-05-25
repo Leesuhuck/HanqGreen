@@ -1,5 +1,6 @@
 package egovframework.example.haksaengStatus.web;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -223,14 +224,40 @@ public class HaksaengStatusController {
 		return "haksaengStatus/modelAttriTable.tiles";
 	}
 	
+	/**
+	 * 
+	 * @param paramBoxMap
+	 * @param pcCheck
+	 * @param modelTable
+	 * @param model
+	 * @return
+	 * @throws Exception pcCheck에서 syso없는걸 가져올려고 syso을 하니 시스템에서 에러를 발생시킨다.
+	 * <pre>
+	 해당코드
+	 System.out.println(Arrays.toString(pcCheck));
+	 System.out.println("length : " + pcCheck.length);
+	 System.out.println("pcCheck[0] : " + pcCheck[0]);
+	 * </pre>
+	 */
 	@RequestMapping(value = "/chkBox.do")
-	public String initchkBox(@RequestParam Map<String, String> paramBoxMap,
-							   Model modelTable) throws Exception {
+	public String initchkBox(@RequestParam(required=false) Map<String, String> paramBoxMap,
+							 @RequestParam(required=false) String[] pcCheck,
+							   Model modelTable,
+							   ModelMap model) throws Exception {
+		
+		//String getCheck = paramBoxMap.get("pcCheck");
 		
 		List<EgovMap> hacksengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
 		
-		modelTable.addAttribute("haksaengList", hacksengStatusList);
-					
+		model.addAttribute("haksaengList", hacksengStatusList);
+		/*
+		if (pcCheck != null) {
+			model.addAttribute("pcCheck", pcCheck);
+		}
+		*/
+		
+		if (pcCheck != null || Arrays.toString(pcCheck) != "") modelTable.addAttribute("pcCheck", pcCheck);
+		
 		return "haksaengStatus/array.tiles";
 	}
 	

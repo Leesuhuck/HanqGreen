@@ -1,63 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script>
 
-	$(function() {
+<c:forEach items="${pcCheck}" var="rowCheck" varStatus="status">
+	
+	${rowCheck}
+				
+</c:forEach>
+<script>
+	// 두번 눌러야 전에 있던 값이 나오는 오류;
+	$(function(){
 		
-		$("#srchbtn").click(function() {
+		$("#srchbtn").click(function(){
 			
-			alert("1");
+			var numberList 	= [];
+			var strNum 		= "";
 			
-			var tr 			= $("[name=chkNum]:checked");
-			var checkArr	= [];
-			
-			for (var i = 0; i < tr.length; i++) {
-				checkArr.push(tr.eq(i).val());
-				console.log(checkArr);
+			<c:forEach items="${pcCheck}" var="rowCheck" varStatus="status">
+				if ("${rowCheck}"!=null) numberList.push("${rowCheck}");
+				
+	   		</c:forEach>
+	   		
+			for (var idx = 0; idx < numberList.length; idx++) {
+				strNum += (numberList[idx] + " ");
 				
 			}
 			
+			alert(strNum);
+		
 		});
 		
 	});
-
+	
 </script>
+<form action="/chkBox.do">
+<input type ="hidden" name="pageName" value="chkBox"/>
 <div id="contents">
 	<div class="content_wrap">
 		<h2 class="fs-18 fw-b">수강생 필터</h2>
-		<br>
-		<div class="innerTop">
-			<table class="tbl type01">
-				<tbody>
-			        <tr>
-			            <th scope="row">수강생 번호</th>
-			            <td>
-			                <ul class="ui-chk">
-			                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
-				                    <li>
-				                        <input type="checkbox" id="chkNum${haksaengInfo.rowCount}" name="chkNum"
-				                        	   value="${haksaengInfo.rowCount}" class="type01">
-				                        <label for="chkNum${haksaengInfo.rowCount}">
-				                        	<span><c:out value='${haksaengInfo.rowCount}'/></span>
-				                        </label>
-				                    </li>
-			                    </c:forEach>
-			                </ul>
-			            </td>
-			        </tr>
-				</tbody>
-			</table>
-		</div>
-		<br>
-		<div class="btn-wrap mgt-20">
-		  <div class="f-r">
-		    <ul>
-		      <li>
-		      	<button type="button" id="srchbtn" class="btn type03 f-r">검색</button>
-		      </li>
-		    </ul>
-		  </div>
-		</div>
+			<br>
+			<div class="innerTop">
+				<table class="tbl type01">
+					<tbody>
+				        <tr>
+				            <th scope="row">수강생 번호</th>
+				            <td>
+				                <ul class="ui-chk">
+				                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
+					                    <li>
+					                        <input type="checkbox" id="chkNum${haksaengInfo.rowCount}" name="pcCheck"
+					                        	   value="${haksaengInfo.rowCount}" class="type01">
+					                        <label for="chkNum${haksaengInfo.rowCount}">
+					                        	<span><c:out value='${haksaengInfo.rowCount}'/></span>
+					                        </label>
+					                    </li>
+				                    </c:forEach>
+				                </ul>
+				            </td>
+				        </tr>
+					</tbody>
+				</table>
+			</div>
+			<br>
+			<div class="btn-wrap mgt-20">
+			  <div class="f-r">
+			    <ul>
+			      <li>
+			      	<button type="submit" id="srchbtn" class="btn type03 f-r">검색</button>
+			      </li>
+			    </ul>
+			  </div>
+			</div>
 		<br>
 		<h2 class="fs-18 fw-b">수강생 테이블</h2><br>
 		<table class="tbl type02">
@@ -92,3 +104,4 @@
 		</table>
 	</div>
 </div>
+</form>

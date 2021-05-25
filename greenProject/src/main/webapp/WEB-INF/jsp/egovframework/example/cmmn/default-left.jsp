@@ -56,6 +56,7 @@ $(function() {
 	<input type = "hidden" id = "paramListFirst" 	name = "paramListFirst"/>
 	<input type = "hidden" id = "paramListSecond" 	name = "paramListSecond"/>
 	<input type = "hidden" id = "paramListThird" 	name = "paramListThird"/>
+	<input type = "hidden" id = "pcCheck" 			name = "pcCheck"/>
 </form>
 
 <!-- lnb -->

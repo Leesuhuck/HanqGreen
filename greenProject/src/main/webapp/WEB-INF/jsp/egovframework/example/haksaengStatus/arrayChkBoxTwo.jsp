@@ -11,9 +11,9 @@
    		
    		$("#srchbtn").click(function(){
    			
-   			<c:forEach items="${pcCheck}" var="rowCheck" varStatus="status">
+   			<c:forEach items="${chkNm}" var="rowChk" varStatus="status">
    			
-				if ("${rowCheck}"!=null) numberList.push("${rowCheck}");
+				if ("${rowChk}"!=null) numberList.push("${rowChk}");
 				
 				strNum += (numberList[idx] + " ");
 			
@@ -28,8 +28,8 @@
 	});
 	
 </script>
-<form action="/chkBox.do">
-<input type ="hidden" name="pageName" value="chkBox"/>
+<form action="/chkBoxTwo.do">
+<input type ="hidden" name="pageName" value="chkBoxTwo"/>
 <div id="contents">
 	<div class="content_wrap">
 		<h2 class="fs-18 fw-b">수강생 필터</h2>
@@ -38,21 +38,25 @@
 				<table class="tbl type01">
 					<tbody>
 				        <tr>
-				            <th scope="row">수강생 번호</th>
+				            <th scope="row">수강생 과목</th>
 				            <td>
 				                <ul class="ui-chk">
+				                	<c:set var="notList" value = ""/>
 				                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
+				                		<c:if test="${haksaengInfo.classNm ne notList}">
+				                			<c:set var="notList" value = "${haksaengInfo.classNm}"/>
+					                    </c:if>
 					                    <li>
-					                        <input type="checkbox" id="chkNum${haksaengInfo.rowCount}" name="pcCheck"
-					                        	   value="${haksaengInfo.rowCount}" class="type01" 
-					                        	   <c:forEach items="${pcCheck}" var="pcChk">
-					                        	   		<c:if test="${haksaengInfo.rowCount eq pcChk}">
+					                        <input type="checkbox" id="chkId${notList}" name="requestChk"
+					                        	   value="${notList}" class="type01" 
+					                        	   <c:forEach items="${requestChk}" var="pcChk">
+					                        	   		<c:if test="${notList eq pcChk}">
 					                        	   			checked
 					                        	   		</c:if>
 					                        	   </c:forEach>
 					                        	   >
-					                        <label for="chkNum${haksaengInfo.rowCount}">
-					                        	<span><c:out value='${haksaengInfo.rowCount}'/></span>
+					                        <label for="chkId${notList}">
+					                        	<span><c:out value='${notList}'/></span>
 					                        </label>
 					                    </li>
 				                    </c:forEach>
@@ -90,8 +94,8 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${haksaengList}" var="haksaengInfo">
-					<c:forEach items="${pcCheck}" var="checkds">
-						<c:if test="${haksaengInfo.rowCount eq checkds}">
+					<c:forEach items="${requestChk}" var="checkds">
+						<c:if test="${haksaengInfo.classNm eq checkds}">
 							<tr>
 								<td><c:out value="${haksaengInfo.rowCount}"/></td>
 				                <td><c:out value="${haksaengInfo.userId}"/></td>

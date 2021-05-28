@@ -57,6 +57,7 @@ $(function() {
 	<input type = "hidden" id = "paramListSecond" 	name = "paramListSecond"/>
 	<input type = "hidden" id = "paramListThird" 	name = "paramListThird"/>
 	<input type = "hidden" id = "pcCheck" 			name = "pcCheck"/>
+	<input type = "hidden" id = "requestChk" 		name = "requestChk"/>
 </form>
 
 <!-- lnb -->
@@ -182,6 +183,18 @@ $(function() {
 						<div>
 							<a href="#">
 								checkBox
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
+					<li id="chkBoxTwo">
+						<div>
+							<a href="#">
+								checkBoxTwo
 							</a>
 							<button type="button" class="btn-bookmark">
 								<span class="hidden">

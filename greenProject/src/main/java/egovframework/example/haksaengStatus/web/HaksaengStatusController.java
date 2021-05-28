@@ -1,5 +1,6 @@
 package egovframework.example.haksaengStatus.web;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -250,15 +251,40 @@ public class HaksaengStatusController {
 		List<EgovMap> hacksengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
 		
 		model.addAttribute("haksaengList", hacksengStatusList);
-		/*
-		if (pcCheck != null) {
-			model.addAttribute("pcCheck", pcCheck);
-		}
-		*/
-		
+				
 		if (pcCheck != null || Arrays.toString(pcCheck) != "") modelTable.addAttribute("pcCheck", pcCheck);
 		
+		System.out.println(Arrays.toString(pcCheck));
+		
 		return "haksaengStatus/array.tiles";
+	}
+	
+	@RequestMapping(value = "/chkBoxTwo.do")
+	public String initchkBoxTwo(@RequestParam(required=false) String[] requestChk,
+							   Model modelTable) throws Exception {
+		
+		String[] newList = {"green","yellow","blue"};
+		
+		List<EgovMap> hacksengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
+		
+		modelTable.addAttribute("haksaengList", hacksengStatusList);
+		
+		System.out.println(requestChk.length);
+		
+		for (int idx = 0; idx < newList.length; idx++) {
+		
+			if (requestChk != null || Arrays.toString(requestChk) != "") {
+				
+				modelTable.addAttribute("requestChk", requestChk);
+				
+			}
+			
+		}
+		
+		
+		System.out.println(Arrays.toString(requestChk));
+		
+		return "haksaengStatus/arrayChkBoxTwo.tiles";
 	}
 	
 }

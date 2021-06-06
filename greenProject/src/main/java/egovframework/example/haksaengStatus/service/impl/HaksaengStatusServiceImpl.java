@@ -40,4 +40,10 @@ public class HaksaengStatusServiceImpl implements HaksaengStatusService {
 		return haksaengStatusMaper.selectParamVO(haksaengStatusVO);
 	}
 
+	@Override
+	public List<EgovMap> selectClassServiceList() throws Exception {
+
+		return haksaengStatusMaper.selectClassServiceList();
+	}
+
 }

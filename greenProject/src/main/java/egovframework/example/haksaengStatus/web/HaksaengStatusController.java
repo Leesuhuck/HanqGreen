@@ -267,7 +267,11 @@ public class HaksaengStatusController {
 		
 		List<EgovMap> hacksengStatusList = haksaengStatusService.selectHaksaengStatusServiceList();
 		
+		List<EgovMap> classList = haksaengStatusService.selectClassServiceList();
+		
 		modelTable.addAttribute("haksaengList", hacksengStatusList);
+		
+		modelTable.addAttribute("classList", classList);
 		
 		System.out.println(requestChk.length);
 		

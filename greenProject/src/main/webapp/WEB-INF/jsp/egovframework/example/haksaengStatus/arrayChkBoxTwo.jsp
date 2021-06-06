@@ -41,22 +41,22 @@
 				            <th scope="row">수강생 과목</th>
 				            <td>
 				                <ul class="ui-chk">
-				                	<c:set var="notList" value = ""/>
 				                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
-				                		<c:if test="${haksaengInfo.classNm ne notList}">
-				                			<c:set var="notList" value = "${haksaengInfo.classNm}"/>
-					                    </c:if>
 					                    <li>
-					                        <input type="checkbox" id="chkId${notList}" name="requestChk"
-					                        	   value="${notList}" class="type01" 
+					                        <input type="checkbox" id="chkId${haksaengInfo.classNm}" name="requestChk"
+					                        	   value="${haksaengInfo.classNm}" class="type01" 
 					                        	   <c:forEach items="${requestChk}" var="pcChk">
-					                        	   		<c:if test="${notList eq pcChk}">
+					                        	   		<c:if test="${haksaengInfo.classNm eq pcChk}">
 					                        	   			checked
 					                        	   		</c:if>
 					                        	   </c:forEach>
 					                        	   >
-					                        <label for="chkId${notList}">
-					                        	<span><c:out value='${notList}'/></span>
+					                       	<!-- 
+					                       	<<c:if test="${haksaengInfo.classNm[cnt.index] ne haksaengInfo.classNm[cnt.count]}">
+					                       	</c:if>
+					                       	-->
+					                        <label for="chkId${haksaengInfo.classNm[cnt.index]}">
+					                        	<span><c:out value='${haksaengInfo.classNm[cnt.index]}'/></span>
 					                        </label>
 					                    </li>
 				                    </c:forEach>

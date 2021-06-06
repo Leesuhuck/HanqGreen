@@ -14,4 +14,6 @@ public interface HaksaengStatusService {
 
 	List<EgovMap> selectParamVO(HaksaengStatusVO haksaengStatusVO) throws Exception;
 
+	List<EgovMap> selectClassServiceList() throws Exception;
+
 }

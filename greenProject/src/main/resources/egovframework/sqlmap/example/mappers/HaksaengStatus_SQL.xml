@@ -53,6 +53,17 @@
 		</where>
 	</select>
 	
+	<!--  
+	<select id = "selectHaksaengStatusServiceList"resultType = "egovMap"parameterType = "egovMap">
+		gs.class_nm 선택
+		t_gisu gs에서
+		gs.class_nm로 그룹화
+					
+		UNION ALL
+			
+		SELECT '생존 전략'class_nm
+	</ select>
+	-->
 	 
 	<select id="stringParam" parameterType="String" resultType="egovMap">
 		SELECT *

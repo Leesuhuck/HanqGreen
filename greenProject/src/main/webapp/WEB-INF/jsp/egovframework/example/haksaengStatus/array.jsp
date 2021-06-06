@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
+
 	// 두번 눌러야 전에 있던 값이 나오는 오류;
 	$(function(){
 		
@@ -28,6 +29,7 @@
 	});
 	
 </script>
+
 <form action="/chkBox.do">
 <input type ="hidden" name="pageName" value="chkBox"/>
 <div id="contents">

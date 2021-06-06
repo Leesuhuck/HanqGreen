@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.haksaengStatus.service.impl.HaksaengStatusMaper">
+
+	<select id="selectHaksaengStatusServiceList" resultType="egovMap" parameterType="egovMap">
+		SELECT *
+		FROM 
+			(SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
+			  , u.user_id
+			  , u.user_nm
+			  , u.age
+			  , u.cafe_nick
+			  , u.phone
+			  , gs.class_nm
+			  , gs.gisu_nm
+			  , gs.jucha_nm
+			  , td.pcId
+			  , td.pcNm
+			FROM t_user u
+			JOIN t_gisu gs
+			ON u.user_id = gs.user_id
+			JOIN test_data td
+			ON u.user_id = td.user_id
+			, (SELECT @rowCount := 0) rowCount
+			
+			UNION ALL
+			
+			SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
+    			, u.user_id
+				, u.user_nm
+				, u.age
+				, u.cafe_nick
+				, u.phone
+				, '생존전략'class_nm
+				, '없음'gisu_nm
+				, '없어요'jucha_nm
+				, '미정'pcId
+			   , '미정'pcNm
+			FROM t_user u
+			WHERE NOT EXISTS (SELECT null
+								FROM t_gisu gs,
+									  test_data td		  
+								WHERE u.user_id = gs.user_id = td.user_id)) AS ATable
+		<where>
+			<if test="userNm != null and userNm != '' ">
+				ATable.user_nm = #{userNm}
+			</if>
+			<!-- 
+			<if test="cafeNick != null and cafeNick != '' ">
+				AND ATable.cafe_nick = #{cafeNick}
+			</if>
+			-->
+		</where>
+	</select>
+<<<<<<< HEAD:greenProject/src/main/resources/egovframework/sqlmap/example/mappers/HaksaengStatus_SQL.xml
+	
+<<<<<<< HEAD
+	<!--  
+	<select id = "selectHaksaengStatusServiceList"resultType = "egovMap"parameterType = "egovMap">
+		gs.class_nm 선택
+		t_gisu gs에서
+		gs.class_nm로 그룹화
+					
+		UNION ALL
+			
+		SELECT '생존 전략'class_nm
+	</ select>
+=======
+	<!-- 체크박스2 리스트 수정
+	<select id="selectHaksaengStatusServiceList" resultType="egovMap" parameterType="egovMap">
+		SELECT gs.class_nm
+		FROM t_gisu gs
+		GROUP BY gs.class_nm
+					
+		UNION ALL
+			
+		SELECT '생존전략'class_nm
+	</select>
+>>>>>>> 4d55ebff110ec05f002a33a64507e668f8ee10e3
+	-->
+=======
+>>>>>>> 201dff54314b1b2ec3255d4a6e6d402cd812819e:greenProject/src/본관/자원/egovframework/sqlmap/예/매퍼/HaksaengStatus_SQL.xml
+	 
+	<select id="stringParam" parameterType="String" resultType="egovMap">
+		SELECT *
+		FROM 
+			(SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
+			  , u.user_nm
+			  , u.age
+			  , u.cafe_nick
+			  , u.phone
+			  , gs.class_nm
+			  , gs.gisu_nm
+			  , gs.jucha_nm
+			FROM t_user u
+			JOIN t_gisu gs
+			ON u.user_id = gs.user_id
+			, (SELECT @rowCount := 0) rowCount
+			
+			UNION ALL
+			
+			SELECT FORMAT((@rowCount := @rowCount + 1),0) rowCount
+				, u.user_nm
+				, u.age
+				, u.cafe_nick
+				, u.phone
+				, '생존전략'class_nm
+				, '없음'gisu_nm
+				, '없어요'jucha_nm
+			FROM t_user u
+			WHERE NOT EXISTS (SELECT null
+								FROM t_gisu gs
+								WHERE u.user_id = gs.user_id)) AS ATable
+		<where>
+			<if test="value != null and value != '' ">
+				ATable.user_nm = #{value}
+			</if>
+		</where>
+	</select>
+	 
+	<select id="selectParamVO" parameterType="haksaengStatusVO" resultType="egovMap">
+		SELECT *
+		FROM  t_user as ur
+		WHERE ur.user_nm = #{userNm}
+		OR	  ur.user_id = #{userId}
+		OR	  ur.age = #{age}
+	</select>
+</mapper>

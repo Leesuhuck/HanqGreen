@@ -2,31 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	// 두번 눌러야 전에 있던 값이 나오는 오류;
-	$(function(){
-		
-		var numberList 	= [];
-		var strNum 		= "";
-		var idx = 0;
-   		
-   		$("#srchbtn").click(function(){
-   			
-   			<c:forEach items="${chkNm}" var="rowChk" varStatus="status">
-   			
-				if ("${rowChk}"!=null) numberList.push("${rowChk}");
-				
-				strNum += (numberList[idx] + " ");
-			
-			idx += 1;
-			
-   			</c:forEach>
-   			
-   			alert(strNum);
-   		
-   		});
-		
-	});
-	
+
+
 </script>
 <form action="/chkBoxTwo.do">
 <input type ="hidden" name="pageName" value="chkBoxTwo"/>
@@ -41,22 +18,18 @@
 				            <th scope="row">수강생 과목</th>
 				            <td>
 				                <ul class="ui-chk">
-				                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
+				                	<c:forEach items="${classList}" var="classListInfo" varStatus="status">
 					                    <li>
-					                        <input type="checkbox" id="chkId${haksaengInfo.classNm}" name="requestChk"
-					                        	   value="${haksaengInfo.classNm}" class="type01" 
+					                        <input type="checkbox" id="chkId${status.index}" name="requestChk"
+					                        	   value="${classListInfo.classNm}" class="type01" 
 					                        	   <c:forEach items="${requestChk}" var="pcChk">
-					                        	   		<c:if test="${haksaengInfo.classNm eq pcChk}">
+					                        	   		<c:if test="${classListInfo.classNm eq pcChk}">
 					                        	   			checked
 					                        	   		</c:if>
 					                        	   </c:forEach>
 					                        	   >
-					                       	<!-- 
-					                       	<<c:if test="${haksaengInfo.classNm[cnt.index] ne haksaengInfo.classNm[cnt.count]}">
-					                       	</c:if>
-					                       	-->
-					                        <label for="chkId${haksaengInfo.classNm[cnt.index]}">
-					                        	<span><c:out value='${haksaengInfo.classNm[cnt.index]}'/></span>
+					                        <label for="chkId${status.index}">
+					                        	<span><c:out value='${classListInfo.classNm}'/></span>
 					                        </label>
 					                    </li>
 				                    </c:forEach>

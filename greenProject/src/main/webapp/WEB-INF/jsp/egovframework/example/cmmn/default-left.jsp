@@ -203,6 +203,18 @@ $(function() {
 							</button>
 						</div>
 					</li>
+					<li id="multiSelectBox">
+						<div>
+							<a href="#">
+								multiSelectBox(ajax)
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
 				</ul>
 			</li>
 		</ul>

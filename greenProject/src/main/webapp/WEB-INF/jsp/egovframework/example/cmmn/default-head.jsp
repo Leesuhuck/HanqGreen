@@ -24,9 +24,11 @@
 <!-- common css -->
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/selectric.css">
 
 <!-- common js -->
 <script src="js/jquery-2.2.4.min.js"></script>
 <script src="js/common.js"></script>
 <script src="js/chart.min.js"></script>
 <script src="js/utils.js"></script>
+<script src="js/jquery.selectric.js"></script>

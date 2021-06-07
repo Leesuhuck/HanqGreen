@@ -273,22 +273,25 @@ public class HaksaengStatusController {
 		
 		modelTable.addAttribute("classList", classList);
 		
-		System.out.println(requestChk.length);
-		
-		for (int idx = 0; idx < newList.length; idx++) {
+		System.out.println(classList);
 		
 			if (requestChk != null || Arrays.toString(requestChk) != "") {
 				
 				modelTable.addAttribute("requestChk", requestChk);
 				
 			}
-			
-		}
 		
 		
 		System.out.println(Arrays.toString(requestChk));
 		
 		return "haksaengStatus/arrayChkBoxTwo.tiles";
+	}
+	
+	@RequestMapping(value = "/multiSelectBox.do")
+	public String initMultiSelectBox(Model modelTable) throws Exception {
+		
+		
+		return "haksaengStatus/multiSelectBox.tiles";
 	}
 	
 }

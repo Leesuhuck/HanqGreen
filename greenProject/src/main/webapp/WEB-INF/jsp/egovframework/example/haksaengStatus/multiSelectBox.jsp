@@ -4,7 +4,9 @@
 <script>
 
 $(function() {
+	
 	$(".sel").selectric();
+
 })
 
 </script>
@@ -16,11 +18,18 @@ $(function() {
 				<th scope="row">컴퓨터 부품 선택</th>
 				<td class="ta-l">
 					<select id="partsMst" name="partsMst" class="sel short">
-						<option value="P0001">CPU</option>
+						<c:forEach items="${partsMstList}" var="par">
+							<option value="${par.partsCd}"><c:out value="${par.partsNm}"></c:out></option>
+						</c:forEach>
 					</select>
 					<select id="partsDtl" name="partsDtl" class="sel middle">
-						<option value="O0001">인텔 10세대</option>
-						<option value="O0002">라이젠 3세대</option>
+						<c:forEach items="${partsDtlList}" var="dtl">
+							<c:forEach items="${partsMstList}" var="par">
+								<c:if test="${dtl.partsCd eq par.partsCd}">
+									<option value="${dtl.optCd}"><c:out value="${dtl.optNm}"></c:out></option>
+								</c:if>
+							</c:forEach>
+						</c:forEach>
 					</select>        
 				</td>   
 			</tr>

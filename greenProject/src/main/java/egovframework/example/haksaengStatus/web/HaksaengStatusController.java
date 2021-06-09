@@ -20,6 +20,7 @@ import egovframework.example.haksaengStatus.service.HaksaengStatusService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusVO;
 import egovframework.example.haksaengStatus.service.HaksaengStudyVO;
 import egovframework.example.haksaengStatus.test.service.HaksaengStatusTestTableService;
+import egovframework.example.partsMstVal.service.PartsMstValService;
 import egovframework.example.user.service.UserService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 
@@ -37,6 +38,10 @@ public class HaksaengStatusController {
 	
 	@Resource
 	HaksaengStatusTestTableService haksaengStatusTestTableService;
+	
+	@Resource
+	PartsMstValService partsMstValService;
+	
 	
 	@RequestMapping(value = "/initHaksaengStatus.do")
 	public String initHaksaengStatus(Model modelHaksaeng) throws Exception {
@@ -289,6 +294,15 @@ public class HaksaengStatusController {
 	
 	@RequestMapping(value = "/multiSelectBox.do")
 	public String initMultiSelectBox(Model modelTable) throws Exception {
+		
+		List<EgovMap> partsMstList = partsMstValService.selectPartsMstList();
+		List<EgovMap> partsDtlList = partsMstValService.selectPartsDtlListList();
+		
+		System.out.println(partsMstList);
+		System.out.println(partsDtlList);
+		
+		modelTable.addAttribute("partsMstList", partsMstList);
+		modelTable.addAttribute("partsDtlList", partsDtlList);
 		
 		
 		return "haksaengStatus/multiSelectBox.tiles";

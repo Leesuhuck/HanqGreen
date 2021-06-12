@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.partsMstVal.service.impl.PartsMstValMaper">
+
+	<select id="selectPartsMstList" resultType="egovMap">
+	
+		SELECT ps.parts_cd,
+			   ps.parts_nm
+		FROM t_main_parts ps
+
+	</select>
+	
+
+	<select id = "selectPartsDtlList" resultType = "egovMap">
+	
+		SELECT os.opt_cd,
+			   os.parts_cd,
+			   os.opt_nm
+		FROM t_main_parts_opt os
+		
+		WHERE EXISTS (SELECT null
+							FROM t_main_parts ps
+							WHERE os.parts_cd = ps.parts_cd);
+							
+	</select>
+	
+</mapper>

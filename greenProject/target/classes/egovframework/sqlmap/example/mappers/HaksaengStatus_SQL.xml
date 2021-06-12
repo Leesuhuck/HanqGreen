@@ -53,6 +53,19 @@
 		</where>
 	</select>
 	
+
+	<select id = "selectClassServiceList" resultType = "egovMap">
+	
+		SELECT gs.class_nm
+		FROM t_gisu gs
+		GROUP BY gs.class_nm
+		
+		UNION ALL
+		
+		SELECT '생존전략'class_nm
+		
+	</select>
+
 	 
 	<select id="stringParam" parameterType="String" resultType="egovMap">
 		SELECT *
@@ -92,10 +105,12 @@
 	</select>
 	 
 	<select id="selectParamVO" parameterType="haksaengStatusVO" resultType="egovMap">
+	
 		SELECT *
 		FROM  t_user as ur
 		WHERE ur.user_nm = #{userNm}
 		OR	  ur.user_id = #{userId}
 		OR	  ur.age = #{age}
+		
 	</select>
 </mapper>

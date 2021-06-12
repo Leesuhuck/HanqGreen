@@ -6,6 +6,12 @@
 $(function() {
 	
 	$(".sel").selectric();
+	
+	$("#partsMst").change(function() {
+		
+		alert(12345)
+		
+	});
 
 })
 

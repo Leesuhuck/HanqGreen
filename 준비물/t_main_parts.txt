@@ -1,0 +1,99 @@
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        10.2.12-MariaDB - mariadb.org binary distribution
+-- 서버 OS:                        Win64
+-- HeidiSQL 버전:                  9.4.0.5125
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- test 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `test` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `test`;
+
+-- 테이블 test.t_main_parts 구조 내보내기
+CREATE TABLE IF NOT EXISTS `t_main_parts` (
+  `parts_cd` varchar(50) NOT NULL COMMENT '부품코드',
+  `parts_nm` varchar(50) DEFAULT NULL COMMENT '부품이름',
+  `sort_no` int(11) DEFAULT NULL COMMENT '정렬순서',
+  `regr` varchar(50) DEFAULT NULL COMMENT '등록자',
+  `reg_dt` datetime DEFAULT NULL COMMENT '등록일시',
+  `updr` varchar(50) DEFAULT NULL COMMENT '수정자',
+  `upd_dt` datetime DEFAULT NULL COMMENT '수정일시',
+  PRIMARY KEY (`parts_cd`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 test.t_main_parts:~7 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `t_main_parts` DISABLE KEYS */;
+INSERT INTO `t_main_parts` (`parts_cd`, `parts_nm`, `sort_no`, `regr`, `reg_dt`, `updr`, `upd_dt`) VALUES
+	('P0001', 'CPU', 1, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('P0002', 'RAM', 2, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('P0003', '메인보드', 3, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('P0004', '그래픽카드', 4, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('P0005', 'SSD', 5, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('P0006', 'HDD', 6, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('P0007', '케이스', 7, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00');
+/*!40000 ALTER TABLE `t_main_parts` ENABLE KEYS */;
+
+-- 테이블 test.t_main_parts_opt 구조 내보내기
+CREATE TABLE IF NOT EXISTS `t_main_parts_opt` (
+  `opt_cd` varchar(50) NOT NULL COMMENT '옵션코드',
+  `opt_nm` varchar(50) DEFAULT NULL COMMENT '옵션이름',
+  `parts_cd` varchar(50) DEFAULT NULL COMMENT '부품코드',
+  `stock` int(11) DEFAULT NULL COMMENT '재고',
+  `regr` varchar(50) DEFAULT NULL COMMENT '등록자',
+  `reg_dt` datetime DEFAULT NULL COMMENT '등록일시',
+  `updr` varchar(50) DEFAULT NULL COMMENT '수정자',
+  `upd_dt` datetime DEFAULT NULL COMMENT '수정일시',
+  PRIMARY KEY (`opt_cd`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 test.t_main_parts_opt:~36 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `t_main_parts_opt` DISABLE KEYS */;
+INSERT INTO `t_main_parts_opt` (`opt_cd`, `opt_nm`, `parts_cd`, `stock`, `regr`, `reg_dt`, `updr`, `upd_dt`) VALUES
+	('O0001', '인텔 10세대', 'P0001', 23, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0002', '인텔 9세대', 'P0001', 14, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0003', '인텔 8세대', 'P0001', 12, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0004', '라이젠 3세대', 'P0001', 16, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0005', '라이젠 2세대', 'P0001', 56, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0006', '라이젠 1세대', 'P0001', 24, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0007', 'PC용 DDR4', 'P0002', 5, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0008', 'PC용 DDR3', 'P0002', 67, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0009', '노트북 DDR4', 'P0002', 38, 'hanq', '2020-01-16 00:00:00', 'hanq\r\n', '2020-01-16 00:00:00'),
+	('O0010', '노트북 DDR3', 'P0002', 23, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0011', '서버용 RAM', 'P0002', 2, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0012', '중고 RAM', 'P0002', 67, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0013', '아이스레이크 지원', 'P0003', 45, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0014', '커피레이크 지원', 'P0003', 7, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0015', '카비레이크 지원', 'P0003', 34, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0016', 'AMD CPU용', 'P0003', 42, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0017', '라이젠 지원', 'P0003', 67, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0018', '멀티 GPU지원', 'P0003', 45, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0019', 'NVIDIA 계열', 'P0004', 67, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0020', 'AMD 계열', 'P0004', 45, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0021', 'MATROX 계열', 'P0004', 12, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0022', '그래픽카드 쿨러', 'P0004', 19, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0023', '외장그래픽', 'P0004', 21, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0024', '전문가용 VGA', 'P0004', 65, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0025', '1TB', 'P0005', 56, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0026', '512GB', 'P0005', 9, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0027', '256GB', 'P0005', 11, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0028', '128GB', 'P0005', 74, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0029', 'M.2 NVMe', 'P0005', 56, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0030', 'M.2 SATA', 'P0005', 76, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0031', 'PC용', 'P0006', 31, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0032', '노트북용', 'P0006', 42, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0033', 'NAS용', 'P0006', 23, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0034', '기업용', 'P0006', 15, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0035', 'HDD 주변기기', 'P0006', 6, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00'),
+	('O0036', '리퍼비시 HDD', 'P0006', 67, 'hanq', '2020-01-16 00:00:00', 'hanq', '2020-01-16 00:00:00');
+/*!40000 ALTER TABLE `t_main_parts_opt` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

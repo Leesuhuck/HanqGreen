@@ -13,4 +13,6 @@ public interface PartsMstValMaper {
 
 	List<EgovMap> selectPartsDtlList() throws Exception;
 
+	List<EgovMap> selectPartsDtlList(String partsCd) throws Exception;
+
 }

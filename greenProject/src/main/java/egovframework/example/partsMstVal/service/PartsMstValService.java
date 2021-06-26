@@ -8,6 +8,6 @@ public interface PartsMstValService {
 
 	List<EgovMap> selectPartsMstList() throws Exception;
 
-	List<EgovMap> selectPartsDtlListList() throws Exception;
+	List<EgovMap> selectPartsDtlListList(String partsCd);
 
 }

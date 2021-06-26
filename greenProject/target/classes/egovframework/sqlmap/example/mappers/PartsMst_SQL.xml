@@ -11,16 +11,18 @@
 	</select>
 	
 
-	<select id = "selectPartsDtlList" resultType = "egovMap">
+	<select id = "selectPartsDtlList" parameterType="String" resultType = "egovMap">
 	
-		SELECT os.opt_cd,
-			   os.parts_cd,
-			   os.opt_nm
-		FROM t_main_parts_opt os
+		SELECT mpo.parts_cd,
+		 	   mpo.opt_nm
+		 
+		FROM t_main_parts_opt mpo
 		
-		WHERE EXISTS (SELECT null
-							FROM t_main_parts ps
-							WHERE os.parts_cd = ps.parts_cd);
+		<where>
+		
+			mpo.parts_cd = #{_parameter}
+			
+		</where>
 							
 	</select>
 	

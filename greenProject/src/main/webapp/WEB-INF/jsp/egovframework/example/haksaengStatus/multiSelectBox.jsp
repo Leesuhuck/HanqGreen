@@ -9,7 +9,17 @@ $(function() {
 	
 	$("#partsMst").change(function() {
 		
-		alert(12345)
+		$.ajax({
+			url : "/selectPartsDtl.do",
+			data : {
+				partsCd : "P0001"
+			},
+			
+			success : function(data) {
+				
+			}
+		})
+		
 		
 	});
 

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import egovframework.example.cmmn.JsonUtil;
 import egovframework.example.haksaengStatus.chart.service.HaksaengStatusChartService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusService;
 import egovframework.example.haksaengStatus.service.HaksaengStatusVO;
@@ -296,16 +298,28 @@ public class HaksaengStatusController {
 	public String initMultiSelectBox(Model modelTable) throws Exception {
 		
 		List<EgovMap> partsMstList = partsMstValService.selectPartsMstList();
-		List<EgovMap> partsDtlList = partsMstValService.selectPartsDtlListList();
 		
 		System.out.println(partsMstList);
-		System.out.println(partsDtlList);
 		
 		modelTable.addAttribute("partsMstList", partsMstList);
-		modelTable.addAttribute("partsDtlList", partsDtlList);
 		
 		
 		return "haksaengStatus/multiSelectBox.tiles";
+	}
+	
+	@RequestMapping(value = "/selectPartsDtl.do")
+	public void initSelectPartsDtl(@RequestParam String partsCd,
+								  HttpServletResponse res) throws Exception {
+		
+		List<EgovMap> partsDtlList = partsMstValService.selectPartsDtlListList(partsCd);
+		
+		JsonUtil jsonUtil = new JsonUtil();
+		
+		String gsonList = jsonUtil.ListToJson(partsDtlList);
+		
+		res.getWriter().write(gsonList);
+		
+		
 	}
 	
 }

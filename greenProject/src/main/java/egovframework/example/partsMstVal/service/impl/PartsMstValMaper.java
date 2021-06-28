@@ -15,4 +15,10 @@ public interface PartsMstValMaper {
 
 	List<EgovMap> selectPartsDtlList(String partsCd) throws Exception;
 
+	List<EgovMap> selectShoppingPartsBoxList() throws Exception;
+	
+	List<EgovMap> selectShoppingBoxList(String id) throws Exception;
+
+	List<EgovMap> selectShoppingChoiceBoxList(String choId) throws Exception;
+
 }

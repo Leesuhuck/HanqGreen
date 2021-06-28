@@ -315,11 +315,60 @@ public class HaksaengStatusController {
 		
 		JsonUtil jsonUtil = new JsonUtil();
 		
+		res.setCharacterEncoding("utf-8");
+		
 		String gsonList = jsonUtil.ListToJson(partsDtlList);
 		
 		res.getWriter().write(gsonList);
 		
 		
 	}
+	
+	@RequestMapping(value = "/shoppingPartsBox.do")
+	public String initShoppingPartsBox(Model modelTable) throws Exception {
+		
+		List<EgovMap> shoppingBoxPartsList = partsMstValService.selectShoppingPartsBoxList();
+		
+		System.out.println(shoppingBoxPartsList);
+		
+		modelTable.addAttribute("shoppingBoxPartsList", shoppingBoxPartsList);
+		
+		
+		return "haksaengStatus/shoppingBox.tiles";
+	}
+	
+	@RequestMapping(value = "/shoppingBox.do")
+	public void initShoppingBox(@RequestParam String id,
+								  HttpServletResponse res) throws Exception {
+		
+		List<EgovMap> shoppingBoxList = partsMstValService.selectShoppingBoxList(id);
+		
+		JsonUtil jsonUtil = new JsonUtil();
+		
+		res.setCharacterEncoding("utf-8");
+		
+		res.getWriter().write(jsonUtil.ListToJson(shoppingBoxList));
+		
+		
+		
+	}
+	
+	@RequestMapping(value = "/shoppingChoiceBox.do")
+	public void initShoppingChoiceBox(@RequestParam String choId,
+			HttpServletResponse res) throws Exception {
+		
+		List<EgovMap> shoppingChoiceBoxList = partsMstValService.selectShoppingChoiceBoxList(choId);
+		
+		JsonUtil jsonUtil = new JsonUtil();
+		
+		res.setCharacterEncoding("utf-8");
+		
+		res.getWriter().write(jsonUtil.ListToJson(shoppingChoiceBoxList));
+		
+		
+		
+	}
+	
+	
 	
 }

@@ -26,4 +26,44 @@
 							
 	</select>
 	
+	<select id="selectShoppingPartsBoxList" resultType="egovMap">
+	
+		SELECT Distinct(kc.id),
+			kc.nm
+		FROM kind_choice kc
+
+	</select>
+	
+	<select id = "selectShoppingBoxList" parameterType="String" resultType = "egovMap">
+	
+		SELECT kc.id,
+		 	   kc.nm,
+		 	   kc.cho_id,
+		 	   kc.cho_nm
+		FROM kind_choice kc
+		
+		<where>
+			
+			kc.id = #{_parameter} AND kc.cho_id LIKE CONCAT(kc.id,'%')
+			
+		</where>
+							
+	</select>
+	
+	<select id = "selectShoppingChoiceBoxList" parameterType="String" resultType = "egovMap">
+	
+		SELECT kc.cho_id,
+			kc.cho_nm,
+			kcp.pro_nm
+		FROM kind_choice kc,
+	  		kind_choice_product kcp 
+		
+		<where>
+		
+			kcp.cho_pro_id = kc.cho_id AND kc.cho_id = #{_parameter}
+			
+		</where>
+							
+	</select>
+	
 </mapper>

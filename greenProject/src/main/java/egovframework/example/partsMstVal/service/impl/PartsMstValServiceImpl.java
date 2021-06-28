@@ -22,9 +22,27 @@ public class PartsMstValServiceImpl implements PartsMstValService {
 	}
 
 	@Override
-	public List<EgovMap> selectPartsDtlListList(String partsCd) {
+	public List<EgovMap> selectPartsDtlListList(String partsCd) throws Exception {
 		
 		return partsMstValMaper.selectPartsDtlList(partsCd);
+	}
+
+	@Override
+	public List<EgovMap> selectShoppingPartsBoxList() throws Exception {
+		
+		return partsMstValMaper.selectShoppingPartsBoxList();
+	}
+	
+	@Override
+	public List<EgovMap> selectShoppingBoxList(String id) throws Exception {
+
+		return partsMstValMaper.selectShoppingBoxList(id);
+	}
+
+	@Override
+	public List<EgovMap> selectShoppingChoiceBoxList(String choId) throws Exception {
+
+		return partsMstValMaper.selectShoppingChoiceBoxList(choId);
 	}
 
 	

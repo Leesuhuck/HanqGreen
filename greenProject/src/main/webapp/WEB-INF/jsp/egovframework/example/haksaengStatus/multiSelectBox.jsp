@@ -6,7 +6,7 @@
 function createSelectBoxOptions(str) {
 	
 	// partsDetail(List)Arr
-	var partsDtlArr = JSON.parse(str);
+	// var partsDtlArr = JSON.parse(str); -> 더이상 할 필요가없음
 	var selectTwoBoxOption = $("#partsDtl > option");
 	
 	selectTwoBoxOption.remove();
@@ -59,14 +59,20 @@ $(function() {
 				//partsCd : createIdx($("#partsMst").data().value)
 				partsCd : $("#partsMst").val() 
 			},
-
-			success : function(data) {
+			//dataType : "text",
+			
+			success : function(partsDtlObj) {
 				
-				console.log(data);
-				console.log(typeof data);
-				console.log(JSON.parse(data));
+				console.log(partsDtlObj);
+				console.log(typeof partsDtlObj);
+				createSelectBoxOptions(partsDtlObj);
 				
-				createSelectBoxOptions(data);
+			},
+			
+			error : function(res, errorStatus, errorMsg) {
+				console.log(res);
+				console.log(errorStatus);
+				console.log(errorMsg);
 				
 			}
 			

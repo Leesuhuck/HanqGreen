@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import egovframework.example.cmmn.JsonUtil;
 import egovframework.example.haksaengStatus.chart.service.HaksaengStatusChartService;
@@ -307,20 +308,14 @@ public class HaksaengStatusController {
 		return "haksaengStatus/multiSelectBox.tiles";
 	}
 	
-	@RequestMapping(value = "/selectPartsDtl.do")
-	public void initSelectPartsDtl(@RequestParam String partsCd,
+	@RequestMapping(value = "/selectPartsDtl.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String initSelectPartsDtl(@RequestParam String partsCd,
 								  HttpServletResponse res) throws Exception {
 		
 		List<EgovMap> partsDtlList = partsMstValService.selectPartsDtlListList(partsCd);
 		
-		JsonUtil jsonUtil = new JsonUtil();
-		
-		res.setCharacterEncoding("utf-8");
-		
-		String gsonList = jsonUtil.ListToJson(partsDtlList);
-		
-		res.getWriter().write(gsonList);
-		
+		return JsonUtil.ListToJson(partsDtlList);
 		
 	}
 	

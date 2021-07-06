@@ -7,9 +7,10 @@ function createSelectBoxOptions(str) {
 	
 	// partsDetail(List)Arr
 	// var partsDtlArr = JSON.parse(str); -> 더이상 할 필요가없음
-	var selectTwoBoxOption = $("#partsDtl > option");
 	
-	selectTwoBoxOption.remove();
+	var selectBoxOption = $("#partsDtl");
+	
+	selectBoxOption.children("option").remove();
 	
 	if (partsDtlArr.length != 0) {
 		
@@ -18,7 +19,7 @@ function createSelectBoxOptions(str) {
 			var optionStr = "<option value=" + map.partsCd + ">" +
 							map.optNm + "</option>";
 			
-			$("#partsDtl").append(optionStr);
+			selectBoxOption.append(optionStr);
 			
 		});
 		
@@ -28,11 +29,11 @@ function createSelectBoxOptions(str) {
 		
 		var notOptionStr = "<option>없음</option>";
 		
-		$("#partsDtl").append(notOptionStr);
+		selectBoxOption.append(notOptionStr);
 		
 	}
 	
-	$("#partsDtl").selectric("refresh");
+	selectBoxOption.selectric("refresh");
 	
 };
 

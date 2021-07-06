@@ -69,6 +69,17 @@ function createPartsProductOptions(str) {
 	
 };
 
+//내 방법
+function createIdx(idxs) {
+	
+	<c:forEach items="${partsMstList}" var="par">
+		if ("${par.partsNm}" === idxs) {
+			return "${par.partsCd}"
+		}
+	</c:forEach>
+	
+}
+
 $(function() {
 	
 	$(".sel").selectric();

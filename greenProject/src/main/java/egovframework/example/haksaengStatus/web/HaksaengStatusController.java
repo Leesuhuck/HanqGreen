@@ -348,19 +348,29 @@ public class HaksaengStatusController {
 		
 	}
 	
-	@RequestMapping(value = "/shoppingChoiceBox.do")
-	public void initShoppingChoiceBox(@RequestParam String choId,
-			HttpServletResponse res) throws Exception {
+	@RequestMapping(value = "/menuSelectBox.do")
+	public String initMenuSelectBox(Model modelTable) throws Exception {
 		
-		List<EgovMap> shoppingChoiceBoxList = partsMstValService.selectShoppingChoiceBoxList(choId);
+		List<EgovMap> menuPartsMstList = partsMstValService.selectMenuPartsMstList();
 		
-		JsonUtil jsonUtil = new JsonUtil();
+		System.out.println(menuPartsMstList);
 		
-		res.setCharacterEncoding("utf-8");
-		
-		res.getWriter().write(jsonUtil.ListToJson(shoppingChoiceBoxList));
+		modelTable.addAttribute("menuPartsMstList", menuPartsMstList);
 		
 		
+		return "haksaengStatus/menuSelectBox.tiles";
+	}
+	
+	
+	
+	@RequestMapping(value = "/menuSelectBoxPartsDtl.do", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String initMenuSelectBoxPartsDtl(@RequestParam String menuCATCD,
+								  HttpServletResponse res) throws Exception {
+		
+		List<EgovMap> menuPartsDtlList = partsMstValService.selectMenuPartsDtlList(menuCATCD);
+		
+		return JsonUtil.ListToJson(menuPartsDtlList);
 		
 	}
 	

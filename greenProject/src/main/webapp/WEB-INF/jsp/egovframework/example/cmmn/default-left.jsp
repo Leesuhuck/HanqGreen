@@ -227,6 +227,18 @@ $(function() {
 							</button>
 						</div>
 					</li>
+					<li id="menuSelectBox">
+						<div>
+							<a href="#">
+								편의점 식품목록
+							</a>
+							<button type="button" class="btn-bookmark">
+								<span class="hidden">
+									즐겨찾기
+								</span>
+							</button>
+						</div>
+					</li>
 				</ul>
 			</li>
 		</ul>

@@ -21,4 +21,8 @@ public interface PartsMstValMaper {
 
 	List<EgovMap> selectShoppingChoiceBoxList(String choId) throws Exception;
 
+	List<EgovMap> selectMenuPartsMstList() throws Exception;
+
+	List<EgovMap> selectMenuPartsDtlList(String menuCATCD) throws Exception;
+
 }

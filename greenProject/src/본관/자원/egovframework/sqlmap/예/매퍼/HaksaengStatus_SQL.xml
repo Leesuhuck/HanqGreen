@@ -52,9 +52,11 @@
 			-->
 		</where>
 	</select>
+	<!-- 
 <<<<<<< HEAD:greenProject/src/main/resources/egovframework/sqlmap/example/mappers/HaksaengStatus_SQL.xml
 	
 <<<<<<< HEAD
+ -->
 	<!--  
 	<select id = "selectHaksaengStatusServiceList"resultType = "egovMap"parameterType = "egovMap">
 		gs.class_nm 선택
@@ -66,6 +68,7 @@
 		SELECT '생존 전략'class_nm
 	</ select>
 =======
+	-->
 	<!-- 체크박스2 리스트 수정
 	<select id="selectHaksaengStatusServiceList" resultType="egovMap" parameterType="egovMap">
 		SELECT gs.class_nm
@@ -77,9 +80,10 @@
 		SELECT '생존전략'class_nm
 	</select>
 >>>>>>> 4d55ebff110ec05f002a33a64507e668f8ee10e3
-	-->
+	
 =======
 >>>>>>> 201dff54314b1b2ec3255d4a6e6d402cd812819e:greenProject/src/본관/자원/egovframework/sqlmap/예/매퍼/HaksaengStatus_SQL.xml
+-->
 	 
 	<select id="stringParam" parameterType="String" resultType="egovMap">
 		SELECT *

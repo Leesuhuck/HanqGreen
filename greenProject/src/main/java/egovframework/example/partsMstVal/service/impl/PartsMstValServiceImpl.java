@@ -45,5 +45,17 @@ public class PartsMstValServiceImpl implements PartsMstValService {
 		return partsMstValMaper.selectShoppingChoiceBoxList(choId);
 	}
 
+	@Override
+	public List<EgovMap> selectMenuPartsMstList() throws Exception {
+
+		return partsMstValMaper.selectMenuPartsMstList();
+	}
+
+	@Override
+	public List<EgovMap> selectMenuPartsDtlList(String menuCATCD) throws Exception {
+
+		return partsMstValMaper.selectMenuPartsDtlList(menuCATCD);
+	}
+
 	
 }

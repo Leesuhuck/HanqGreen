@@ -66,4 +66,25 @@
 							
 	</select>
 	
+	<select id = "selectMenuPartsMstList" resultType = "egovMap">
+	
+		SELECT tmc.MENU_CAT_CD, 
+			   tmc.MENU_CAT_NM
+		FROM t_menu_category tmc
+		
+	</select>
+	
+	<select id = "selectMenuPartsDtlList" parameterType="String" resultType = "egovMap">
+	
+		SELECT tm.MENU_CD,
+			   tm.MENU_PRC,
+			   tm.MENU_NM
+		FROM t_menu tm
+		
+		<where>
+			tm.MENU_CAT_CD = #{_parameter}
+		</where>
+		
+	</select>
+	
 </mapper>

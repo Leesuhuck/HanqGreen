@@ -5,9 +5,6 @@
 
 function createSelectBoxOptions(str) {
 	
-	// partsDetail(List)Arr
-	// var partsDtlArr = JSON.parse(str); -> 더이상 할 필요가없음
-	
 	var selectBoxOption = $("#partsDtl");
 	
 	selectBoxOption.children("option").remove();

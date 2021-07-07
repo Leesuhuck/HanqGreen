@@ -361,19 +361,15 @@ public class HaksaengStatusController {
 		return "haksaengStatus/menuSelectBox.tiles";
 	}
 	
-	
-	
-	@RequestMapping(value = "/menuSelectBoxPartsDtl.do", produces="application/json; charset=utf-8")
+	@RequestMapping(value = "/menuSelectSetPartsDtl.do", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String initMenuSelectBoxPartsDtl(@RequestParam String menuCATCD,
+	public String initMenuSelectSetPartsDtl(@RequestParam String menuCatCd,
 								  HttpServletResponse res) throws Exception {
 		
-		List<EgovMap> menuPartsDtlList = partsMstValService.selectMenuPartsDtlList(menuCATCD);
+		List<EgovMap> menuSelectSetPartsDtlVal = partsMstValService.selectMenuSelectSetPartsDtlVal(menuCatCd);
 		
-		return JsonUtil.ListToJson(menuPartsDtlList);
+		return JsonUtil.ListToJson(menuSelectSetPartsDtlVal);
 		
 	}
-	
-	
 	
 }

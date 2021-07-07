@@ -52,9 +52,9 @@ public class PartsMstValServiceImpl implements PartsMstValService {
 	}
 
 	@Override
-	public List<EgovMap> selectMenuPartsDtlList(String menuCATCD) throws Exception {
+	public List<EgovMap> selectMenuSelectSetPartsDtlVal(String menuCatCd) throws Exception {
 
-		return partsMstValMaper.selectMenuPartsDtlList(menuCATCD);
+		return partsMstValMaper.selectMenuSelectSetPartsDtlVal(menuCatCd);
 	}
 
 	

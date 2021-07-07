@@ -230,7 +230,7 @@ $(function() {
 					<li id="menuSelectBox">
 						<div>
 							<a href="#">
-								편의점 식품목록
+								편의점 제품목록
 							</a>
 							<button type="button" class="btn-bookmark">
 								<span class="hidden">

@@ -89,7 +89,7 @@ $(function() {
 		$.ajax({
 			url : "/shoppingBox.do",
 			data : {
-				
+				//partsCd : createIdx($("#partsMst").data().value)
 				id : $("#partsKind").val()
 				
 			},

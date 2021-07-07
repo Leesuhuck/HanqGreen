@@ -3,15 +3,18 @@
 
 <script>
 
+// partsDtl의 셀렉트 박스 Option 선언
 function createSelectBoxOptions(str) {
 	
 	var selectBoxOption = $("#partsDtl");
 	
+	// 초기화
 	selectBoxOption.children("option").remove();
 	
-	if (partsDtlArr.length != 0) {
+	// 선택된 partsMst에서 데이터가 1개라도 있을때 해당 option 태그 생성
+	if (str.length != 0) {
 		
-		partsDtlArr.forEach(function(map, idx) {
+		str.forEach(function(map, idx) {
 			
 			var optionStr = "<option value=" + map.partsCd + ">" +
 							map.optNm + "</option>";
@@ -20,9 +23,10 @@ function createSelectBoxOptions(str) {
 			
 		});
 		
-		console.log(typeof $("#partsMst").data().value);
-		
-	} else {
+	}
+	
+	// 선택된 partsMst에서 데이터가 1개라도 없으면 option 태그 값 없음으로 생성
+	else {
 		
 		var notOptionStr = "<option>없음</option>";
 		
@@ -34,31 +38,25 @@ function createSelectBoxOptions(str) {
 	
 };
 
-// 내 방법
-function createIdx(idxs) {
-	
-	<c:forEach items="${partsMstList}" var="par">
-		if ("${par.partsNm}" === idxs) {
-			return "${par.partsCd}"
-		}
-	</c:forEach>
-	
-}
-
 $(function() {
 	
 	$(".sel").selectric();
 	
+	// partsMst의 셀렉트 박스가 바뀌었을때 실행
 	$("#partsMst").change(function() {
 		
+		/**
+			url : selectPartsDtl.do 로 설정
+			data : partsCd (key) : partsMst에 변환에 따른 (value)
+		*/
 		$.ajax({
 			url : "/selectPartsDtl.do",
 			data : {
-				//partsCd : createIdx($("#partsMst").data().value)
 				partsCd : $("#partsMst").val() 
 			},
 			//dataType : "text",
 			
+			// 성공시 createSelectBoxOptions 함수 실행
 			success : function(partsDtlObj) {
 				
 				console.log(partsDtlObj);
@@ -67,6 +65,7 @@ $(function() {
 				
 			},
 			
+			// 실패시 res, errorStatus, errorMsg 매개변수 확인
 			error : function(res, errorStatus, errorMsg) {
 				console.log(res);
 				console.log(errorStatus);

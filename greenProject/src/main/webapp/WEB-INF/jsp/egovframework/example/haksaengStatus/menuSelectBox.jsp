@@ -3,63 +3,75 @@
 
 <script>
 
-function vuejs(menuCATCD_Data) {
+function serveSelVal(strPartsDtlObj) {
 	
-	var selectBoxOption = $("#storeMenuSelectBox");
-		
-		selectBoxOption.children("option").remove();
-		
-		if (menuCATCD_Data.length != 0) {
-			
-			menuCATCD_Data.forEach(function(map, idx) {
-				
-				var optionStr = "<option value=" + map.menuCd + ">" +
-								map.menuNm + "\t" + map.menuPrc + "원</option>";
-				
-				selectBoxOption.append(optionStr);
-				
-			});
-			
-			console.log(typeof $("#storeMenuSelectBox").data().value);
-			
-		} else {
-			
-			var notOptionStr = "<option>없음</option>";
-			
-			selectBoxOption.append(notOptionStr);
-			
-		}
-		
-		selectBoxOption.selectric("refresh");	
+	var selectBoxOption = $("#conStroeSetBox");
 	
-};
+	// 초기화
+	selectBoxOption.children("option").remove();
+	
+	// 선택된 partsMst에서 데이터가 1개라도 있을때 해당 option 태그 생성
+	if (strPartsDtlObj.length != 0) {
+		
+		strPartsDtlObj.forEach(function(map, idx) {
+			
+			var optionStr = "<option value=" + map.menuCd + ">" +
+							map.menuNm + "\t" + map.menuPrc + "원</option>";
+			
+			selectBoxOption.append(optionStr);
+			
+		});
+		
+	}
+	
+	// 선택된 partsMst에서 데이터가 1개라도 없으면 option 태그 값 없음으로 생성
+	else {
+		
+		var notOptionStr = "<option>없음</option>";
+		
+		selectBoxOption.append(notOptionStr);
+		
+	}
+	
+	selectBoxOption.selectric("refresh");
+	
+}
 
 $(function() {
 	$(".sel").selectric();
 	
-	$("#conStoreSelectBox").change(function() {
+	// partsMst의 셀렉트 박스가 바뀌었을때 실행
+	$("#conStroeBox").change(function() {
 		
+		/**
+			url : selectPartsDtl.do 로 설정
+			data : partsCd (key) : partsMst에 변환에 따른 (value)
+		*/
 		$.ajax({
-			
-			url : "/menuSelectBoxPartsDtl.do",
-			
+			url : "/menuSelectSetPartsDtl.do",
 			data : {
-				menuCATCD : $("#conStoreSelectBox").val()
+				menuCatCd : $("#conStroeBox").val() 
+			},
+			//dataType : "text",
+			
+			// 성공시 createSelectBoxOptions 함수 실행
+			success : function(partsDtlObj) {
+				console.log(typeof partsDtlObj);
+				
+				serveSelVal(partsDtlObj);
+				
 			},
 			
-			success : function(data) {
-				
-				console.log(typeof data);
-				vuejs(data);
-				
-			},
-			
-			error : function(data) {
+			// 실패시 res, errorStatus, errorMsg 매개변수 확인
+			error : function(res, errorStatus, errorMsg) {
+				console.log(res);
+				console.log(errorStatus);
+				console.log(errorMsg);
 				
 			}
 			
-		});
-		
+		})
+
 	});
 	
 })
@@ -70,15 +82,15 @@ $(function() {
 	<table class="tbl type02">	
 		<tbody> 
 			<tr>
-				<th scope="row">편의점메뉴 분류</th>
+				<th scope="row">메뉴 분류</th>
 				<td class="ta-l">
-					<select id="conStoreSelectBox" name="conStoreSelectBox" class="sel short">
+					<select id="conStroeBox" name="conStroeBox" class="sel short">
 						<option>선택해주세요</option>
-						<c:forEach items="${menuPartsMstList}" var="menuPart">
-							<option value="${menuPart.menuCatCd}"><c:out value="${menuPart.menuCatNm}"></c:out></option>
+						<c:forEach items="${menuPartsMstList}" var="MPML">
+							<option value="${MPML.menuCatCd}"><c:out value="${MPML.menuCatNm}"></c:out></option>
 						</c:forEach>
 					</select>
-					<select id="storeMenuSelectBox" name="storeMenuSelectBox" class="sel middle">
+					<select id="conStroeSetBox" name="conStroeSetBox" class="sel middle">
 						<option>선택해주세요</option>
 					</select>        
 				</td>   

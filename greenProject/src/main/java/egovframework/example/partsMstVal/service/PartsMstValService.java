@@ -18,6 +18,6 @@ public interface PartsMstValService {
 
 	List<EgovMap> selectMenuPartsMstList() throws Exception;
 
-	List<EgovMap> selectMenuPartsDtlList(String menuCATCD) throws Exception;
+	List<EgovMap> selectMenuSelectSetPartsDtlVal(String menuCatCd) throws Exception;
 
 }

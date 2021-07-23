@@ -10,7 +10,7 @@ function serveSelVal(strPartsDtlObj) {
 	// 초기화
 	selectBoxOption.children("option").remove();
 	
-	// 선택된 partsMst에서 데이터가 1개라도 있을때 해당 option 태그 생성
+	// 선택된 conStroeBox에서 데이터가 1개라도 있을때 해당 option 태그 생성
 	if (strPartsDtlObj.length != 0) {
 		
 		strPartsDtlObj.forEach(function(map, idx) {
@@ -24,7 +24,7 @@ function serveSelVal(strPartsDtlObj) {
 		
 	}
 	
-	// 선택된 partsMst에서 데이터가 1개라도 없으면 option 태그 값 없음으로 생성
+	// 선택된 conStroeBox에서 데이터가 1개라도 없으면 option 태그 값 없음으로 생성
 	else {
 		
 		var notOptionStr = "<option>없음</option>";
@@ -40,12 +40,12 @@ function serveSelVal(strPartsDtlObj) {
 $(function() {
 	$(".sel").selectric();
 	
-	// partsMst의 셀렉트 박스가 바뀌었을때 실행
+	// conStroeBox의 셀렉트 박스가 바뀌었을때 실행
 	$("#conStroeBox").change(function() {
 		
 		/**
-			url : selectPartsDtl.do 로 설정
-			data : partsCd (key) : partsMst에 변환에 따른 (value)
+			url : menuSelectSetPartsDtl.do 로 설정
+			data : menuCatCd (key) : conStroeBox에 변환에 따른 (value)
 		*/
 		$.ajax({
 			url : "/menuSelectSetPartsDtl.do",
@@ -54,7 +54,7 @@ $(function() {
 			},
 			//dataType : "text",
 			
-			// 성공시 createSelectBoxOptions 함수 실행
+			// 성공시 serveSelVal 함수 실행
 			success : function(partsDtlObj) {
 				console.log(typeof partsDtlObj);
 				

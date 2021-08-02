@@ -3,30 +3,33 @@
 
 <script>
 
+var fieldC = {
+		
+	messageA : "한큐"		
+}
+
+var eventC = {
 	
+	clickM : function() {
+		
+		var that = this;
+		
+		$("#btn").click(function() {
+			
+			alert(that.messageA);
+			
+		});
+		
+	}
+}
+
 $(function(){
 	
-	var fieldC = {
-			
-			messageA : "한큐"
-			
-			click : function() {
-				alert(this.messageA)
-			}
-			
-	}
 	
-	var eventC = {
 			
-			clickM : function() {
-				alert(this.messageA);
-			}
-	}
+	eventC.clickM.call(fieldC);
+			
 	
-	$("#btn").click(function() {
-		
-		eventC.clickM.call(fieldC);
-	});
 	
 	var labelArr = [],
 		dataArr  = [],
@@ -65,6 +68,19 @@ $(function(){
 	var ctx = $("#chart-area")[0].getContext('2d');
 	window.myPie = new Chart(ctx, config);
 	
+	$("#chart-area").click(function(evt){
+	    		
+	    var firstPoint = myPie.getElementAtEvent(evt)[0];
+	    console.log(firstPoint);
+
+	    if (firstPoint) {
+	    	
+	        var label = myPie.data.labels[firstPoint._index];
+	        console.log(label);
+	    }
+		
+	});
+	
 });
 </script>
 <!-- contents -->
@@ -83,7 +99,7 @@ $(function(){
 					</div>
 				</div>
 			</div>
-			<canvas id="chart-area" style="display: block; height: 242px; width: 484px;" width="605"
+			<canvas id="chart-area" style="cursor:pointer; display: block; height: 242px; width: 484px;" width="605"
 					height="302" class="chartjs-render-monitor">
 			</canvas>
 		</div>

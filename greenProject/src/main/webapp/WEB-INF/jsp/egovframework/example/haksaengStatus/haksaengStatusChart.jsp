@@ -25,12 +25,8 @@ var eventC = {
 
 $(function(){
 	
-	
-			
 	eventC.clickM.call(fieldC);
-			
-	
-	
+
 	var labelArr = [],
 		dataArr  = [],
 		ltt 	 = "${haksaengStatusChartList}";
@@ -71,12 +67,44 @@ $(function(){
 	$("#chart-area").click(function(evt){
 	    		
 	    var firstPoint = myPie.getElementAtEvent(evt)[0];
-	    console.log(firstPoint);
-
+	    
 	    if (firstPoint) {
 	    	
 	        var label = myPie.data.labels[firstPoint._index];
-	        console.log(label);
+	        
+	        $.ajax ({
+	        	
+	        	url : "/selectHaksaengStatusList.do",
+	        	
+	        	type : "post",
+	        	
+	        	data : {"param" : label},
+	        	
+	        	success : function(data) {
+	        		
+	        		$("#paramId").remove();
+	        		
+	        		data.forEach(function(map, idx) {
+	        			
+	        			var optionStr = 
+	        			"<tr>" 
+		        			+ "<td>" + idx + "</td>" +
+		        			"<td>" + map.userId + "</td>" +
+		        			"<td>" + map.userNm + "</td>" +
+		        			"<td>" + map.age + "</td>" +
+		        			"<td>" + map.cafeNick + "</td>" +
+		        			"<td>" + map.phone + "</td>" +
+		        			"<td>" + map.classNm + "</td>" +
+		        			"<td>" + map.gisuNm + "</td>" +
+		        			"<td>" + map.juchaNm + "</td>" +
+	        			"</tr>"
+	        			
+	        			$("#paramId").append(optionStr);
+	        			
+	        		});
+	        		
+	        	}
+	        });
 	    }
 		
 	});
@@ -127,7 +155,7 @@ $(function(){
 					<th scope="row">주차</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id = "paramId">
 			</tbody>
 		</table>
 	</div>

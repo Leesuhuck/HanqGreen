@@ -14,14 +14,9 @@
 			  , gs.class_nm
 			  , gs.gisu_nm
 			  , gs.jucha_nm
-			  , td.pcId
-			  , td.pcNm
 			FROM t_user u
 			JOIN t_gisu gs
 			ON u.user_id = gs.user_id
-			JOIN test_data td
-			ON u.user_id = td.user_id
-			, (SELECT @rowCount := 0) rowCount
 			
 			UNION ALL
 			
@@ -34,22 +29,21 @@
 				, '생존전략'class_nm
 				, '없음'gisu_nm
 				, '없어요'jucha_nm
-				, '미정'pcId
-			   , '미정'pcNm
 			FROM t_user u
 			WHERE NOT EXISTS (SELECT null
 								FROM t_gisu gs,
 									  test_data td		  
-								WHERE u.user_id = gs.user_id = td.user_id)) AS ATable
+								WHERE u.user_id = gs.user_id)) AS ATable
 		<where>
+			
 			<if test="userNm != null and userNm != '' ">
-				ATable.user_nm = #{userNm}
+				AND ATable.user_nm = #{userNm}
 			</if>
-			<!-- 
-			<if test="cafeNick != null and cafeNick != '' ">
-				AND ATable.cafe_nick = #{cafeNick}
+			
+			<if test="classNm != null and classNm != '' ">
+				AND ATable.class_nm = #{classNm}
 			</if>
-			-->
+			
 		</where>
 	</select>
 	

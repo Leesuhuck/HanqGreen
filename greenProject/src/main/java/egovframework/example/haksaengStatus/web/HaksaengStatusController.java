@@ -374,15 +374,17 @@ public class HaksaengStatusController {
 	
 	@RequestMapping(value = "/selectHaksaengStatusList.do", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String initHaksaengStatusList(@RequestParam String param,
-								  HttpServletResponse res) throws Exception {
+	public String initHaksaengStatusList(@RequestParam String param) throws Exception {
 		
 		EgovMap egovParam = new EgovMap();
 		egovParam.put("classNm",param);
 		List<EgovMap> haksaengStatusList = haksaengStatusService.selectHaksaengStatusServiceList(egovParam);
-		System.out.println(param);
-		return JsonUtil.ListToJson(haksaengStatusList);
 		
+		if (param.length() == 0) {
+			return null;
+		} else {
+			return JsonUtil.ListToJson(haksaengStatusList);
+		}
 	}
 	
 }

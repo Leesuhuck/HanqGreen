@@ -82,28 +82,59 @@ $(function(){
 	        	
 	        	success : function(data) {
 	        		
-	        		$("#paramId").remove();
+	        		var paramStr = "";
+	        		var idxFirst = 7;
+	        		var paramDtl = $("#paramId > tr");
 	        		
-	        		data.forEach(function(map, idx) {
-	        			
-	        			var optionStr = 
-	        			"<tr>" 
-		        			+ "<td>" + idx + "</td>" +
-		        			"<td>" + map.userId + "</td>" +
-		        			"<td>" + map.userNm + "</td>" +
-		        			"<td>" + map.age + "</td>" +
-		        			"<td>" + map.cafeNick + "</td>" +
-		        			"<td>" + map.phone + "</td>" +
-		        			"<td>" + map.classNm + "</td>" +
-		        			"<td>" + map.gisuNm + "</td>" +
-		        			"<td>" + map.juchaNm + "</td>" +
-	        			"</tr>"
-	        			
-	        			$("#paramId").append(optionStr);
-	        			
-	        		});
+	        		paramDtl.remove();
 	        		
-	        	}
+	        		if (data.length ==0) {
+	        			
+	        			optionStr =
+	        				
+		        			"<tr>" 
+			        			+ "<td>" + "0" + "</td>" +
+			        			idxFirst.forEach(function(map, idx) {	
+				        			"<td>" + "데이터가없습니다." + "</td>" +
+			        			});
+			        			
+		        			"</tr>"
+		        			
+		        			$("#paramId").append(optionStr);
+		        			
+		        			alert("데이터를 확인해주세요");
+		        			
+	        		}
+	        		else {
+	        			
+		        		data.forEach(function(map, idx) {
+		        			
+		        			optionStr = 
+		        			"<tr>" 
+			        			+ "<td>" + idx + "</td>" +
+			        			"<td>" + map.userId + "</td>" +
+			        			"<td>" + map.userNm + "</td>" +
+			        			"<td>" + map.age + "</td>" +
+			        			"<td>" + map.cafeNick + "</td>" +
+			        			"<td>" + map.phone + "</td>" +
+			        			"<td>" + map.classNm + "</td>" +
+			        			"<td>" + map.gisuNm + "</td>" +
+			        			"<td>" + map.juchaNm + "</td>" +
+		        			"</tr>"
+		        			
+		        			$("#paramId").append(optionStr);
+		        			
+		        		});
+	        		}
+	        		
+	        	},
+	        	
+	        	error : function(res, errorStatus, errorMsg) {
+					console.log(res);
+					console.log(errorStatus);
+					console.log(errorMsg);
+					
+				}
 	        });
 	    }
 		

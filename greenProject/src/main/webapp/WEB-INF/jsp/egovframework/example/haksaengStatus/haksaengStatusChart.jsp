@@ -5,7 +5,48 @@
 
 var fieldC = {
 		
-	messageA : "한큐"		
+		labelArr : [],
+		dataArr  : [],
+		myPieA 	 : null
+	}
+
+var chartC = {
+
+	configM : function() {
+			
+		<c:forEach items="${haksaengStatusChartList}" var="haksaengStatusChartInfo" varStatus="status" >
+			this.labelArr[${status.index}] 	= "${haksaengStatusChartInfo.classNm}";
+			this.dataArr[${status.index}] 	= "${haksaengStatusChartInfo.cont}";
+		</c:forEach>
+		
+		var config = {
+				type: 'pie',
+				data: {
+					datasets: [{
+						data:this.dataArr,
+						backgroundColor: [
+							window.chartColors.red,
+							window.chartColors.yellow,
+							window.chartColors.green,
+							window.chartColors.blue,
+						],
+						label: 'Dataset 1'
+					}],
+					labels:this.labelArr,
+				},
+				options: {
+					responsive: true
+				}
+			}
+		return config;
+	},
+	
+	createM : function() {
+		var ctx = $("#chart-area")[0].getContext('2d');
+		
+		this.myPieA = new Chart(ctx, chartC.configM.call(this));
+		
+	}
 }
 
 var eventC = {
@@ -14,133 +55,75 @@ var eventC = {
 		
 		var that = this;
 		
-		$("#btn").click(function() {
+		$("#chart-area").click(function(evt){
+		    		
+		    var firstPoint = that.myPieA.getElementAtEvent(evt)[0];
+		    
+		    //데이터가 없을시 없음 옵션을 넣어주기 위한 if구문
+		    if ($("#paramId > tr").length > 0) {
+		    	
+		    	//데이터를 지우지않으면 두번째 셀랙트박스는 계속 쌓이기에 설정
+		    	$("#paramId > tr").remove();
+		    }
+		    
+		    if (firstPoint) {
+		    	
+		        var label = that.myPieA.data.labels[firstPoint._index];
+		        
+		        $.ajax ({
+		        	
+		        	url : "/selectHaksaengStatusList.do",
+		        	
+		        	type : "post",
+		        	
+		        	//data는 두번째 셀랙트 where 조건인 메뉴 분류코드(첫번째 셀랙트박스 선택값의미)
+		        	data : {"param" : label},
+		        	
+		        	success : function(data) {
+		        		
+		        		//두번째 셀랙트박스 데이터 생성하는 함수
+		        		data.forEach(function(obj, i){
+		        			
+		        			var tr = document.createElement("tr")
+		        			
+		        			for (var k in obj) {
+		        				var td = document.createElement("td")
+		        				
+		        				$(td).text(obj[k]);
+		        				$(tr).append(td);
+		        			}
+		        			$("#paramId").append(tr)
+
+		        		})
+		        	},
+		        	
+		        	error : function(res, errorStatus, errorMsg) {
+						console.log(res);
+						console.log(errorStatus);
+						console.log(errorMsg);
+						
+					}
+		        })
+		    }
 			
-			alert(that.messageA);
-			
-		});
-		
+		})
+	}
+}
+
+var initC = {
+	
+	settingM : function() {
+		chartC.createM.call(this)
+		eventC.clickM.call(this)
 	}
 }
 
 $(function(){
 	
-	eventC.clickM.call(fieldC);
+	initC.settingM.call(fieldC)
+	
+})
 
-	var labelArr = [],
-		dataArr  = [],
-		ltt 	 = "${haksaengStatusChartList}";
-	
-	//items : 리스트를 받아올 배열, var : for문 내부에서 사용할 변수, varStatus : 상태용 변수(index 및 for문 제어)
-	<c:forEach items="${haksaengStatusChartList}" var="haksaengStatusChartInfo" varStatus="status" >
-		labelArr[${status.index}] 	= "${haksaengStatusChartInfo.classNm}";
-		dataArr[${status.index}] 	= "${haksaengStatusChartInfo.cont}";
-		console.log("${haksaengStatusChartInfo}");
-	</c:forEach>
-	
-	console.log(ltt);
-	console.log(labelArr);
-	
-	var config = {
-			type: 'pie',
-			data: {
-				datasets: [{
-					data:dataArr,
-					backgroundColor: [
-						window.chartColors.red,
-						window.chartColors.yellow,
-						window.chartColors.green,
-						window.chartColors.blue,
-					],
-					label: 'Dataset 1'
-				}],
-				labels:labelArr,
-			},
-			options: {
-				responsive: true
-			}
-		};
-	
-	var ctx = $("#chart-area")[0].getContext('2d');
-	window.myPie = new Chart(ctx, config);
-	
-	$("#chart-area").click(function(evt){
-	    		
-	    var firstPoint = myPie.getElementAtEvent(evt)[0];
-	    
-	    if (firstPoint) {
-	    	
-	        var label = myPie.data.labels[firstPoint._index];
-	        
-	        $.ajax ({
-	        	
-	        	url : "/selectHaksaengStatusList.do",
-	        	
-	        	type : "post",
-	        	
-	        	data : {"param" : label},
-	        	
-	        	success : function(data) {
-	        		
-	        		var paramStr = "";
-	        		var idxFirst = 7;
-	        		var paramDtl = $("#paramId > tr");
-	        		
-	        		paramDtl.remove();
-	        		
-	        		if (data.length ==0) {
-	        			
-	        			optionStr =
-	        				
-		        			"<tr>" 
-			        			+ "<td>" + "0" + "</td>" +
-			        			idxFirst.forEach(function(map, idx) {	
-				        			"<td>" + "데이터가없습니다." + "</td>" +
-			        			});
-			        			
-		        			"</tr>"
-		        			
-		        			$("#paramId").append(optionStr);
-		        			
-		        			alert("데이터를 확인해주세요");
-		        			
-	        		}
-	        		else {
-	        			
-		        		data.forEach(function(map, idx) {
-		        			
-		        			optionStr = 
-		        			"<tr>" 
-			        			+ "<td>" + idx + "</td>" +
-			        			"<td>" + map.userId + "</td>" +
-			        			"<td>" + map.userNm + "</td>" +
-			        			"<td>" + map.age + "</td>" +
-			        			"<td>" + map.cafeNick + "</td>" +
-			        			"<td>" + map.phone + "</td>" +
-			        			"<td>" + map.classNm + "</td>" +
-			        			"<td>" + map.gisuNm + "</td>" +
-			        			"<td>" + map.juchaNm + "</td>" +
-		        			"</tr>"
-		        			
-		        			$("#paramId").append(optionStr);
-		        			
-		        		});
-	        		}
-	        		
-	        	},
-	        	
-	        	error : function(res, errorStatus, errorMsg) {
-					console.log(res);
-					console.log(errorStatus);
-					console.log(errorMsg);
-					
-				}
-	        });
-	    }
-		
-	});
-	
-});
 </script>
 <!-- contents -->
 <div id="contents">

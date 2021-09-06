@@ -4,127 +4,112 @@
 <script>
 
 var fieldC = {
-		
-		labelArr : [],
-		dataArr  : [],
-		myPieA 	 : null
-	}
-
-var chartC = {
-
-	configM : function() {
-			
-		<c:forEach items="${haksaengStatusChartList}" var="haksaengStatusChartInfo" varStatus="status" >
-			this.labelArr[${status.index}] 	= "${haksaengStatusChartInfo.classNm}";
-			this.dataArr[${status.index}] 	= "${haksaengStatusChartInfo.cont}";
-		</c:forEach>
-		
-		var config = {
-				type: 'pie',
-				data: {
-					datasets: [{
-						data:this.dataArr,
-						backgroundColor: [
-							window.chartColors.red,
-							window.chartColors.yellow,
-							window.chartColors.green,
-							window.chartColors.blue,
-						],
-						label: 'Dataset 1'
-					}],
-					labels:this.labelArr,
-				},
-				options: {
-					responsive: true
-				}
-			}
-		return config;
-	},
 	
-	createM : function() {
-		var ctx = $("#chart-area")[0].getContext('2d');
-		
-		this.myPieA = new Chart(ctx, chartC.configM.call(this));
-		
-	}
-}
-
-var eventC = {
-	
-	clickM : function() {
-		
-		var that = this;
-		
-		$("#chart-area").click(function(evt){
-		    		
-		    var firstPoint = that.myPieA.getElementAtEvent(evt)[0];
-		    
-		    //데이터가 없을시 없음 옵션을 넣어주기 위한 if구문
-		    if ($("#paramId > tr").length > 0) {
-		    	
-		    	//데이터를 지우지않으면 두번째 셀랙트박스는 계속 쌓이기에 설정
-		    	$("#paramId > tr").remove();
-		    }
-		    
-		    if (firstPoint) {
-		    	
-		        var label = that.myPieA.data.labels[firstPoint._index];
-		        
-		        $.ajax ({
-		        	
-		        	url : "/selectHaksaengStatusList.do",
-		        	
-		        	type : "post",
-		        	
-		        	//data는 두번째 셀랙트 where 조건인 메뉴 분류코드(첫번째 셀랙트박스 선택값의미)
-		        	data : {"param" : label},
-		        	
-		        	success : function(data) {
-		        		
-		        		//두번째 셀랙트박스 데이터 생성하는 함수
-		        		data.forEach(function(obj, i){
-		        			
-		        			var tr = document.createElement("tr")
-		        			
-		        			for (var k in obj) {
-		        				var td = document.createElement("td")
-		        				
-		        				$(td).text(obj[k]);
-		        				$(tr).append(td);
-		        			}
-		        			$("#paramId").append(tr)
-
-		        		})
-		        	},
-		        	
-		        	error : function(res, errorStatus, errorMsg) {
-						console.log(res);
-						console.log(errorStatus);
-						console.log(errorMsg);
-						
-					}
-		        })
-		    }
-			
-		})
-	}
+	labelArrA  	: [],
+	dataArrA	: [],
+	myPieA		: null
 }
 
 var initC = {
 	
 	settingM : function() {
-		chartC.createM.call(this)
-		eventC.clickM.call(this)
+		
+		chartC.createM.call(this);
+		
+		eventC.clickM.call(this);
 	}
 }
 
-$(function(){
+
+var chartC = {
 	
-	initC.settingM.call(fieldC)
+	configM : function() {
+		
+		<c:forEach items="${haksaengChartList}" var="haksaengChartInfo" varStatus="status">
+			this.labelArrA[${status.index}] 	= "${haksaengChartInfo.classNm}";
+			this.dataArrA[${status.index}] 	= "${haksaengChartInfo.cnt}";
+		</c:forEach>
+		
+		var config = {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: this.dataArrA,
+					backgroundColor: [
+						window.chartColors.red,
+						window.chartColors.yellow,
+						window.chartColors.green,
+						window.chartColors.blue,
+					],
+					label: 'Dataset 1'
+				}],
+				labels: this.labelArrA
+			},
+			options: {
+				responsive: true
+			}
+		};
+		
+		return config;
+	},
 	
-})
+	createM : function() {
+		var ctx = $("#chart-area")[0].getContext("2d");
+		
+		this.myPieA = new Chart(ctx, chartC.configM.call(this));
+	}
+}
+
+var eventC = {
+		
+	clickM : function() {
+		var that = this;
+
+		$("#chart-area").click(function(e) {
+			var firstPoint = that.myPieA.getElementAtEvent(e)[0];
+			
+			if (firstPoint) {
+		        var label = that.myPieA.data.labels[firstPoint._index];
+		        
+		        if ($("tbody > tr").length > 0) {
+		        	$("tbody > tr").remove();
+		        }
+				
+		        $.ajax({
+		        	
+		        	url : "/selectHaksaengStatusList.do", 
+		        	type : "post",
+		        	data : {"param" : label},
+		        	
+		        	success : function(d) {
+		        		
+		        		d.forEach(function(obj, i) {
+		        			var tr = document.createElement("tr");
+		        			
+		        			for (var k in obj) {
+		        				var td = document.createElement("td");
+		        				
+		        				$(td).text(obj[k]);
+		        				
+		        				$(tr).append(td);
+		        			}
+		        			
+		        			$("tbody").append(tr);
+		        		});
+		        	}
+		        });
+		    }
+		});
+	}	
+}
+
+$(function() {
+	
+	initC.settingM.call(fieldC);
+});
 
 </script>
+
 <!-- contents -->
 <div id="contents">
 	<!-- 컨텐츠 -->
@@ -146,7 +131,7 @@ $(function(){
 			</canvas>
 		</div>
 		<div class="btn-wrap mgt-20">
-		  <div class="f-r">
+		  	<div class="f-r">
 			<ul>
 			  <li>
 				<button id="btn" type="button" class="btn type03 f-r">검색</button>
@@ -169,7 +154,7 @@ $(function(){
 					<th scope="row">주차</th>
 				</tr>
 			</thead>
-			<tbody id = "paramId">
+			<tbody>
 			</tbody>
 		</table>
 	</div>

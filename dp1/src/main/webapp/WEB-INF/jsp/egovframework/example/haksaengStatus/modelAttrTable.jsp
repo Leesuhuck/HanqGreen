@@ -8,9 +8,10 @@ $(function() {
 	$("tbody > tr").click(function() {
 		var $allTd = $(this).children();
 		
-		$("#haksaengName").val($allTd.eq(2).text());
+		$("#userId").val($allTd.eq(1).text());
+		$("#userNm").val($allTd.eq(2).text());
 		
-		leftInitC.leftClkA("initHaksaengStatusTable");
+		leftInitC.leftClkA("modelAttr");
 	});
 });
 
@@ -20,6 +21,7 @@ $(function() {
 	<!-- 컨텐츠 -->
 	<div class="content_wrap">
 	<h2 class="fs-18 fw-b">수강생 테이블</h2><br>
+	<c:out value="${vo.userNm}"></c:out>
 		<table class="tbl type02">
 			<thead>
 				<tr>

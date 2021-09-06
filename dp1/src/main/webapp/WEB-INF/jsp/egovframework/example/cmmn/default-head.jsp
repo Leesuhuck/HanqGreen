@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -16,7 +15,6 @@
     <script src="js/plugin/html5shiv.js"></script>
 <![endif]-->
 
-<!-- <link rel="icon" type="image/png" href="http://example.com/myicon.png"> -->
 <link rel="shortcut icon" href="images/common/favicon.ico">
 
 <title>관리자페이지</title>
@@ -28,7 +26,7 @@
 
 <!-- common js -->
 <script src="js/jquery-2.2.4.min.js"></script>
-<script src="js/common.js"></script>
+<script src="js/jquery.selectric.js"></script>
 <script src="js/chart.min.js"></script>
 <script src="js/utils.js"></script>
-<script src="js/jquery.selectric.js"></script>
+<script src="js/common.js"></script>

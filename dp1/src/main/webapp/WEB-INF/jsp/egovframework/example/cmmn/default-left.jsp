@@ -6,30 +6,15 @@ var leftInitC = {
 		
 	leftClkA : function(liStr) {
 		
+		if (liStr === "initHaksaengStatusChart" || liStr === "initHaksaengStatusTable") {
+			$("#leftFrm").attr("action", "/oneMapping.do");
+		} else {
+			$("#leftFrm").attr("action", "/" + liStr + ".do");
+		}
+		
 		$("#pageName").val(liStr);
 		
-		if (liStr === "initHaksaengStatusChart" || liStr === "initHaksaengStatusTable") {
-			
-			$("#leftFrm").attr("action", "/oneLove.do");
-			
-		}
-		else if (liStr === "initHaksaengStatusTestTable") {
-			
-			$("#leftFrm").attr("action", "/testServerList.do");
-			
-		}
-		else if (liStr === "initIntroductionTable") {
-			
-			$("#leftFrm").attr("action", "/initIntroductionTable.do");
-			
-		}
-		else {
-			
-			$("#leftFrm").attr("action", "/" + liStr + ".do")
-			
-		}
-		
-		$("#leftFrm").submit(); // form의 논리적 주소와 그 안에 있는 input 데이터들을 모두 *전송*
+		$("#leftFrm").submit();
 	}
 }
 
@@ -45,19 +30,14 @@ $(function() {
 </script>
 
 <form id="leftFrm" method="post">
-	<input type ="hidden"  id = "pageName" 			name="pageName">
-	<input type = "hidden" id = "tName" 			name = "tName"/>
-	<input type = "hidden" id = "testNm" 			name = "testNm"/>
-	<input type = "hidden" id = "userId" 			name = "userId"/>
-	<input type = "hidden" id = "userNm" 			name = "userNm"/>
-	<input type = "hidden" id = "cafeNick" 			name = "cafeNick"/>
-	<input type = "hidden" id = "pcId" 				name = "pcId"/>
-	<input type = "hidden" id = "pcNm" 				name = "pcNm"/>
-	<input type = "hidden" id = "paramListFirst" 	name = "paramListFirst"/>
-	<input type = "hidden" id = "paramListSecond" 	name = "paramListSecond"/>
-	<input type = "hidden" id = "paramListThird" 	name = "paramListThird"/>
-	<input type = "hidden" id = "pcCheck" 			name = "pcCheck"/>
-	<input type = "hidden" id = "requestChk" 		name = "requestChk"/>
+	<input type="hidden" id="userId" 		name="userId">
+	<input type="hidden" id="userNm" 		name="userNm">
+	<input type="hidden" id="pageName" 		name="pageName">
+	<input type="hidden" id="haksaengName" 	name="haksaengName">
+	<input type="hidden" id="param1" 		name="param1" value="hanq">
+	<input type="hidden" id="param2" 		name="param2" value="twoq">
+	<input type="hidden" id="param3" 		name="param3" value="samq">
+	<input type="hidden" id="chkArr" 		name="chkArr">
 </form>
 
 <!-- lnb -->
@@ -107,135 +87,67 @@ $(function() {
 							</button>
 						</div>
 					</li>
-					<li id="initHaksaengStatusTestTable">
-						<div>
-							<a href="#">
-								연습테이블
-							</a>
-							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
-							</button>
-						</div>
-					</li>
 					<li id="stringParam">
 						<div>
-							<a href="#">
-								문자열보내기
-							</a>
+							<a href="#">문자열보내기</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
 					<li id="paramVO">
 						<div>
-							<a href="#">
-								VO보내기
-							</a>
+							<a href="#">VO보내기</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
 					<li id="reqParam">
 						<div>
-							<a href="#">
-								@RequestParam
-							</a>
+							<a href="#">@RequestParam</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
-							</button>
-						</div>
-					</li>
-					<li id="initIntroductionTable">
-						<div>
-							<a href="#">
-								연습하기
-							</a>
-							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
 					<li id="modelAttr">
 						<div>
-							<a href="#">
-								@ModelAttribute
-							</a>
+							<a href="#">@ModelAttribute</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
 					<li id="chkBox">
 						<div>
-							<a href="#">
-								checkBox
-							</a>
+							<a href="#">checkBox</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
-					<li id="chkBoxTwo">
+					<li id="chkBox2">
 						<div>
-							<a href="#">
-								checkBoxTwo
-							</a>
+							<a href="#">checkBox2</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
 					<li id="multiSelectBox">
 						<div>
-							<a href="#">
-								multiSelectBox(ajax)
-							</a>
+							<a href="#">multiSelectBox(ajax)</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>
-					<li id="shoppingPartsBox">
+					<li id="initMenuSelectBox">
 						<div>
-							<a href="#">
-								인터넷쇼핑 제품목록
-							</a>
+							<a href="#">menuSelectBox</a>
 							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
-							</button>
-						</div>
-					</li>
-					<li id="menuSelectBox">
-						<div>
-							<a href="#">
-								편의점 제품목록
-							</a>
-							<button type="button" class="btn-bookmark">
-								<span class="hidden">
-									즐겨찾기
-								</span>
+								<span class="hidden">즐겨찾기</span>
 							</button>
 						</div>
 					</li>

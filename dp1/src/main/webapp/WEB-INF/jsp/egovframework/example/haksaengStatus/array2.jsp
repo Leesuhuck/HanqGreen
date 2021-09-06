@@ -11,8 +11,8 @@ $(function() {
 
 
 <div id="contents">
-	<form action="/chkBox.do">
-		<input type="hidden" name="pageName" value="chkBox">
+	<form action="/chkBox2.do">
+		<input type="hidden" name="pageName" value="chkBox2">
 		<div class="content_wrap">
 			<h2 class="fs-18 fw-b">수강생 필터</h2>
 			<br>
@@ -20,21 +20,21 @@ $(function() {
 				<table class="tbl type01">
 					<tbody>
 				        <tr>
-				            <th scope="row">수강생 번호</th>
+				            <th scope="row">수업 명</th>
 				            <td>
 				                <ul class="ui-chk">
-				                	<c:forEach items="${haksaengList}" var="haksaengInfo" varStatus="status">
+				                	<c:forEach items="${classList}" var="classInfo" varStatus="status">
 					                    <li>
-					                        <input type="checkbox" id="chkNum${haksaengInfo.num}" name="chkArr"
-					                        	   value="${haksaengInfo.num}" class="type01" 
+					                        <input type="checkbox" id="chkNum${status.index}" name="chkArr"
+					                        	   value="${classInfo.classNm}" class="type01" 
 					                       		<c:forEach items="${chkArr}" var="chk">
-					                       			<c:if test="${haksaengInfo.num eq chk}">
+					                       			<c:if test="${classInfo.classNm eq chk}">
 					                       				checked
 					                       			</c:if>
 					                       		</c:forEach>
 					                       	>
-					                        <label for="chkNum${haksaengInfo.num}">
-					                        	<span><c:out value='${haksaengInfo.num}'/></span>
+					                        <label for="chkNum${status.index}">
+					                        	<span><c:out value='${classInfo.classNm}'/></span>
 					                        </label>
 					                    </li>
 				                    </c:forEach>
@@ -73,7 +73,7 @@ $(function() {
 				<tbody>
 					<c:forEach items="${haksaengList}" var="haksaengInfo">
 						<c:forEach items="${chkArr}" var="chk">
-							<c:if test="${haksaengInfo.num eq chk}">
+							<c:if test="${haksaengInfo.classNm eq chk}">
 								<tr>
 									<td><c:out value="${haksaengInfo.num}"/></td>
 					                <td><c:out value="${haksaengInfo.userId}"/></td>

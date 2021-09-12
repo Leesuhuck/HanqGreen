@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.example.welcomeWeb.service.impl.WelcomeWebMapper">
+
+	<select id="selectWelcomeWebServiceList" resultType="egovMap">
+		SELECT  *
+		FROM
+			(SELECT FORMAT((@rownum := @rownum + 1), 0) num
+				  , ur.user_id
+				  , ur.user_nm
+				  , ur.age
+				  , ur.cafe_nick
+				  , ur.phone
+				  , gs.class_nm
+				  , gs.gisu_nm
+				  , gs.jucha_nm
+			FROM   t_user ur
+			JOIN   t_gisu gs
+			ON	    ur.user_id = gs.user_id
+				  , (SELECT @rownum := 0) rownum
+			UNION ALL
+			SELECT FORMAT((@rownum := @rownum + 1), 0) num
+				  , ur.user_id
+				  , ur.user_nm
+				  , ur.age
+				  , ur.cafe_nick
+				  , ur.phone
+				  , '생존전략' class_nm
+				  , '없음' gisu_nm
+				  , '없음' jucha_nm
+			FROM   t_user ur
+			WHERE NOT EXISTS (SELECT 1
+								     FROM t_gisu gs
+								    WHERE ur.user_id = gs.user_id)) A
+		
+	</select>
+</mapper>
